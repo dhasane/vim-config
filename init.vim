@@ -1,8 +1,4 @@
 
-
-
-
-
 " NNNNNNNN        NNNNNNNNEEEEEEEEEEEEEEEEEEEEEE     OOOOOOOOO     VVVVVVVV           VVVVVVVVIIIIIIIIIIMMMMMMMM               MMMMMMMM
 " N:::::::N       N::::::NE::::::::::::::::::::E   OO:::::::::OO   V::::::V           V::::::VI::::::::IM:::::::M             M:::::::M
 " N::::::::N      N::::::NE::::::::::::::::::::E OO:::::::::::::OO V::::::V           V::::::VI::::::::IM::::::::M           M::::::::M
@@ -19,8 +15,6 @@
 " N::::::N       N:::::::NE::::::::::::::::::::E OO:::::::::::::OO           V:::::V          I::::::::IM::::::M               M::::::M
 " N::::::N        N::::::NE::::::::::::::::::::E   OO:::::::::OO              V:::V           I::::::::IM::::::M               M::::::M
 " NNNNNNNN         NNNNNNNEEEEEEEEEEEEEEEEEEEEEE     OOOOOOOOO                 VVV            IIIIIIIIIIMMMMMMMM               MMMMMMMM
-
-" pag 93
 
 " #########################
 " general
@@ -59,15 +53,8 @@ if &compatible
 endif
 
 set path+=.**
-" set wildmenu
-" set wildmode=longest,list,full
 
-" set statusline+=%F
-
-" set splitbelow splitright
-" highlight Normal ctermbg=0  "25
-
-" set spellsuggest=10 " muestra las primeras 10 palabras recomendadas
+set spellsuggest=10 " muestra las primeras 10 palabras recomendadas
 "set statusline=%F%m%r%h%w\ [TYPE=%Y]\ [POS=%04l,%04v]\ [%p%%]\ [LEN=%L]
 
 " Where to look for tags files
@@ -84,8 +71,6 @@ elseif has('python2') " segunda opcion
   set pyx=2
 endif
 
-" autocmd BufWritePre * %s/\s\+$//e " quitar espacios ' ' sobrantes al final
-" autocmd FileType c,cpp,vim,java,php,rust,python autocmd BufWritePre <buffer> %s/\s\+$//e
 " autocmd FileType c,cpp,vim,java,php,rust,python autocmd BufWritePre * :call StripEndlineComments()
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
@@ -121,7 +106,6 @@ set encoding=utf-8
 
 set linebreak
 
-
 set list listchars=tab:»·,trail:·  " configuracion cool que encontre para mostrar espacios al inicio y al final de la linea
 
 set breakindent
@@ -147,7 +131,7 @@ set clipboard=unnamedplus  " en para el clipboard, en teoria
 
 " busqueda
 set ignorecase " make searches case insensitive
-set nohlsearch  " highlight matching search strings
+set hlsearch  " highlight matching search strings
 
 " set completeopt+=preview
 " set completeopt+=menuone,preview
@@ -186,130 +170,17 @@ set noshowmode		" para no mostrar el estado de edicion en la ultima linea, ya qu
 set scrolloff=10 " keep some lines visible when scrolling
 set cursorline " cambia el color de la linea en la que se encuentra el cursor
 
-" en algun momento podria ser interesante hacer mi propio statusline, lo siguiente lo saque de :
-" https://cryptpad.fr/code/#/2/code/view/n4isJrnG0tnGnXXbXORGxs9wrGLI4q4I8I7xnozm-Xw/
-" highlight InactiveColor guibg=#3e4249 guifg=#b7bec9
-" highlight NormalColor guibg=#a1bf78 guifg=#3e4249
-" highlight InsertColor guibg=#73b3e7 guifg=#3e4249
-" highlight ReplaceColor guibg=#d390e7 guifg=#3e4249
-" highlight VisualColor guibg=#e77171 guifg=#3e4249
-" highlight TerminalColor guibg=#73b3e7 guifg=#3e4249
-" highlight SelectColor guibg=#d390e7 guifg=#3e4249
-" highlight CommandColor guibg=#e77171 guifg=#3e4249
-" highlight GitColor guibg=#3e4249
-"
-" function! ActiveStatus()
-" let statusline=""
-" let statusline.="%#NormalColor#%{(mode()=='n')?'\     \ NORMAL\ ':''}"
-" let statusline.="%#InsertColor#%{(mode()=='i')?'\     \ INSERT\ ':''}"
-" let statusline.="%#ReplaceColor#%{(mode()=='R')?      '\ \ REPLACE\ ':''}"
-" let statusline.="%#VisualColor#%{(mode()=='v')?'\     \ VISUAL\ ':''}"
-" let statusline.="%#VisualColor#%{(mode()=='V')?'\     \ VISUAL\ ':''}"
-" let statusline.="%#VisualColor#%{(mode()=='^V')?      '\ \ VISUAL\ ':''}"
-" let statusline.="%#TerminalColor#%{(mode()=='t')?     '\ \ TERMINAL\ ':''}"
-" let statusline.="%#CommandColor#%{(mode()=='c')?      '\ \ COMMAND\ ':''}"
-" let statusline.="%#SelectColor#%{(mode()=='s')?'\     \ SELECT\ ':''}"
-" let statusline.="%#GitColor#%(\     %{fugitive#head()}\ %)"
-" let statusline.="%1*"
-" let statusline.=" %F"
-" let statusline.=" %m"
-" let statusline.="%="
-" let statusline.=" WD: %{wordcount().words}"
-" let statusline.=" |"
-" let statusline.=" LN: %L"
-" let statusline.=" |"
-" let statusline.="%(\ %Y%)"
-" let statusline.=" [%n] "
-" return statusline
-" endfunction
-"
-" function! InactiveStatus()
-" let statusline=""
-" let statusline.="%#InactiveColor#"
-" let statusline.=" %F"
-" let statusline.=" %m"
-" let statusline.="%="
-" let statusline.=" %Y"
-" let statusline.=" [%n] "
-" return statusline
-" endfunction
-"
-" augroup status
-" autocmd!
-" autocmd WinEnter,BufEnter * setlocal statusline=%!          ActiveStatus()
-" autocmd WinLeave,BufLeave * setlocal statusline=%!          InactiveStatus()
-" augroup END
-"
-" set statusline=%!ActiveStatus()
-" hasta aca -------------------------------------------------------------------------------------------
-
-
-" set tabline
-
-" function MyTabLine()
-"   let s = ''
-"   for i in range(tabpagenr('$'))
-"     " select the highlighting
-"     if i + 1 == tabpagenr()
-"       let s .= '%#TabLineSel#'
-"     else
-"       let s .= '%#TabLine#'
-"     endif
-"
-"     " set the tab page number (for mouse clicks)
-"     let s .= '%' . (i + 1) . 'T'
-"
-"     " the label is made by MyTabLabel()
-"     " let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
-"   endfor
-"
-"   " after the last tab fill with TabLineFill and reset tab page nr
-"   let s .= '%#TabLineFill#%T'
-"
-"   " right-align the label to close the current tab page
-"   if tabpagenr('$') > 1
-"     let s .= '%=%#TabLine#%999Xclose'
-"   endif
-"
-"   return s
-" endfunction
-" function MyTabLabel(n)
-"   let buflist = tabpagebuflist(a:n)
-"   let winnr = tabpagewinnr(a:n)
-"   return bufname(buflist[winnr - 1])
-" endfunction
-" function! MyTabLine()
-"   let s = ''
-"   for i in range(tabpagenr('$'))
-"     let tabnr = i + 1 " range() starts at 0
-"     let winnr = tabpagewinnr(tabnr)
-"     let buflist = tabpagebuflist(tabnr)
-"     let bufnr = buflist[winnr - 1]
-"     let bufname = fnamemodify(bufname(bufnr), ':t')
-"
-"     let s .= '%' . tabnr . 'T'
-"     let s .= (tabnr == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
-"     let s .= ' ' . tabnr
-"
-"     let n = tabpagewinnr(tabnr,'$')
-"     if n > 1 | let s .= ':' . n | endif
-"
-"     let s .= empty(bufname) ? ' [No Name] ' : ' ' . bufname . ' '
-"
-"     let bufmodified = getbufvar(bufnr, "&mod")
-"     if bufmodified | let s .= '+ ' | endif
-"   endfor
-"   let s .= '%#TabLineFill#'
-"   return s
-" endfunction
-" set tabline=%!MyTabLine()
-
 " always show signcolumns
 set signcolumn=yes
 
 " #########################
 " mappings
 " #########################
+
+    map <leader>re :execute "edit " . $MYVIMRC<CR>
+    map <leader>rs :execute "source " . $MYVIMRC<CR>
+
+    nmap <Esc> <Esc>:nohlsearch<CR>
 
 " secuencia de escape de la terminal de vim
     tnoremap <Esc> <C-\><C-n>
@@ -390,9 +261,7 @@ set signcolumn=yes
 	 noremap <C-s> :w<cr>
 	inoremap <C-s> <esc><esc>:w<cr>
 	vnoremap <C-s> <esc><esc>:w<cr>
-	"  noremap <C-s> m':w<cr>`'
-	" inoremap <C-s> <esc><esc>m':w<cr>`'
-	" vnoremap <C-s> <esc><esc>m':w<cr>`'
+
 " deshacer
 	inoremap <C-z> <esc> ui
 	 noremap <C-z> u
@@ -407,8 +276,9 @@ set signcolumn=yes
     vnoremap <tab> >gv
     vnoremap <S-tab> <gv
 
-    nnoremap <tab> >>
-    nnoremap <S-tab> <<
+    " nnoremap <tab> >>
+    " nnoremap <S-tab> <<
+    noremap <tab> <C-w>
 
 " copiar y pegar
 	vnoremap <C-c> "*y :let @+=@* <cr>
