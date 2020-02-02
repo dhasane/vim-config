@@ -1,8 +1,4 @@
 
-
-
-
-
 " NNNNNNNN        NNNNNNNNEEEEEEEEEEEEEEEEEEEEEE     OOOOOOOOO     VVVVVVVV           VVVVVVVVIIIIIIIIIIMMMMMMMM               MMMMMMMM
 " N:::::::N       N::::::NE::::::::::::::::::::E   OO:::::::::OO   V::::::V           V::::::VI::::::::IM:::::::M             M:::::::M
 " N::::::::N      N::::::NE::::::::::::::::::::E OO:::::::::::::OO V::::::V           V::::::VI::::::::IM::::::::M           M::::::::M
@@ -27,17 +23,9 @@
 " para poder poner comandos mas interesantes sin sobreescribir nada :v
 let mapleader = ","
 
-" plugins
 " packadd termdebug
-"
-set t_Co=256
-" if &t_Co > 255
-"     " color definitions
-" endif
-" if &t_Co == 8
-"     " color definitions
-" endif
 
+set t_Co=256
 
 autocmd BufNewFile * silent! call LoadTemplate('%:e') " cargar templates
 
@@ -53,9 +41,6 @@ if &compatible
   set nocompatible
 endif
 
-set path+=.**
-set wildmenu
-set wildmode=longest,list,full
 
 set spellsuggest=10 " muestra las primeras 10 palabras recomendadas
 "set statusline=%F%m%r%h%w\ [TYPE=%Y]\ [POS=%04l,%04v]\ [%p%%]\ [LEN=%L]
@@ -72,7 +57,6 @@ endif
 
 " autocmd FileType c,cpp,vim,java,php,rust,python autocmd BufWritePre * :call StripEndlineComments()
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
-
 
 " autocmd Filetype * &ft!="markdown" | BufWritePre * %s/\s\+$//e " quitar espacios ' ' sobrantes al final, excepto si es markdown
 
@@ -98,15 +82,24 @@ if exists('$TMUX')
     execute "set <xLeft>=\e[1;*D"
 endif
 
+set background=dark
+colorscheme desert
+
 filetype plugin on
 syntax on
 syntax enable
+
+highlight Pmenu guibg=#e77171 gui=bold
+
 set encoding=utf-8
 
-set linebreak
+set path+=.**
+set wildmenu
+set wildmode=list:longest,list:full
 
 set list listchars=tab:»·,trail:·  " configuracion cool que encontre para mostrar espacios al inicio y al final de la linea
 
+set linebreak
 set breakindent
 set smarttab  "Improves tabbing
 set expandtab " Use spaces instead of tabs
@@ -138,23 +131,35 @@ set nohlsearch  " highlight matching search strings
     set nobackup
     set nowritebackup
 
-    " Better display for messages
-    set cmdheight=2
-
     " You will have bad experience for diagnostic messages when it's default 4000.
     set updatetime=300
 
     " don't give |ins-completion-menu| messages.
     set shortmess+=c
 
-    " always show signcolumns
-    set signcolumn=yes
 
 " set completeopt+=preview
 set completeopt+=longest,menuone,preview
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <Down> <C-R>=pumvisible() ? "\<lt>C-N>" : "\<lt>Down>"<CR>
+inoremap <UP> <C-R>=pumvisible() ? "\<lt>C-P>" : "\<lt>Up>"<CR>
 
 set omnifunc=syntaxcomplete#Complete
+set complete
+set completeopt=menu,longest,menuone,preview
+
+inoremap <expr> . MayComplete()
+func MayComplete()
+    if (can complete)
+      return ".\<C-X>\<C-O>"
+    endif
+    return '.'
+endfunc
+
+let g:netrw_liststyle = 3
+let g:netrw_banner = 0
+let g:netrw_browse_split = 4
+let g:netrw_winsize = 25
 
 " #######################
 " visual
@@ -170,8 +175,7 @@ if !has('nvim') && $TERM ==# 'screen-256color'
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
-set background=dark
-colorscheme desert
+" colorscheme evening
 
 " cursor
 
@@ -202,127 +206,11 @@ set number relativenumber
 set noshowmode		" para no mostrar el estado de edicion en la ultima linea, ya que esta en lightline
 set scrolloff=10 " keep some lines visible when scrolling
 set cursorline " cambia el color de la linea en la que se encuentra el cursor
-
-" en algun momento podria ser interesante hacer mi propio statusline, lo siguiente lo saque de :
-" https://cryptpad.fr/code/#/2/code/view/n4isJrnG0tnGnXXbXORGxs9wrGLI4q4I8I7xnozm-Xw/
-" highlight InactiveColor guibg=#3e4249 guifg=#b7bec9
-" highlight NormalColor guibg=#a1bf78 guifg=#3e4249
-" highlight InsertColor guibg=#73b3e7 guifg=#3e4249
-" highlight ReplaceColor guibg=#d390e7 guifg=#3e4249
-" highlight VisualColor guibg=#e77171 guifg=#3e4249
-" highlight TerminalColor guibg=#73b3e7 guifg=#3e4249
-" highlight SelectColor guibg=#d390e7 guifg=#3e4249
-" highlight CommandColor guibg=#e77171 guifg=#3e4249
-" highlight GitColor guibg=#3e4249
-"
-" function! ActiveStatus()
-" let statusline=""
-" let statusline.="%#NormalColor#%{(mode()=='n')?'\     \ NORMAL\ ':''}"
-" let statusline.="%#InsertColor#%{(mode()=='i')?'\     \ INSERT\ ':''}"
-" let statusline.="%#ReplaceColor#%{(mode()=='R')?      '\ \ REPLACE\ ':''}"
-" let statusline.="%#VisualColor#%{(mode()=='v')?'\     \ VISUAL\ ':''}"
-" let statusline.="%#VisualColor#%{(mode()=='V')?'\     \ VISUAL\ ':''}"
-" let statusline.="%#VisualColor#%{(mode()=='^V')?      '\ \ VISUAL\ ':''}"
-" let statusline.="%#TerminalColor#%{(mode()=='t')?     '\ \ TERMINAL\ ':''}"
-" let statusline.="%#CommandColor#%{(mode()=='c')?      '\ \ COMMAND\ ':''}"
-" let statusline.="%#SelectColor#%{(mode()=='s')?'\     \ SELECT\ ':''}"
-" let statusline.="%#GitColor#%(\     %{fugitive#head()}\ %)"
-" let statusline.="%1*"
-" let statusline.=" %F"
-" let statusline.=" %m"
-" let statusline.="%="
-" let statusline.=" WD: %{wordcount().words}"
-" let statusline.=" |"
-" let statusline.=" LN: %L"
-" let statusline.=" |"
-" let statusline.="%(\ %Y%)"
-" let statusline.=" [%n] "
-" return statusline
-" endfunction
-"
-" function! InactiveStatus()
-" let statusline=""
-" let statusline.="%#InactiveColor#"
-" let statusline.=" %F"
-" let statusline.=" %m"
-" let statusline.="%="
-" let statusline.=" %Y"
-" let statusline.=" [%n] "
-" return statusline
-" endfunction
-"
-" augroup status
-" autocmd!
-" autocmd WinEnter,BufEnter * setlocal statusline=%!          ActiveStatus()
-" autocmd WinLeave,BufLeave * setlocal statusline=%!          InactiveStatus()
-" augroup END
-"
-" set statusline=%!ActiveStatus()
-" hasta aca -------------------------------------------------------------------------------------------
-
-
+set signcolumn=yes " always show signcolumns
 " set tabline
 
-" function MyTabLine()
-"   let s = ''
-"   for i in range(tabpagenr('$'))
-"     " select the highlighting
-"     if i + 1 == tabpagenr()
-"       let s .= '%#TabLineSel#'
-"     else
-"       let s .= '%#TabLine#'
-"     endif
-"
-"     " set the tab page number (for mouse clicks)
-"     let s .= '%' . (i + 1) . 'T'
-"
-"     " the label is made by MyTabLabel()
-"     " let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
-"   endfor
-"
-"   " after the last tab fill with TabLineFill and reset tab page nr
-"   let s .= '%#TabLineFill#%T'
-"
-"   " right-align the label to close the current tab page
-"   if tabpagenr('$') > 1
-"     let s .= '%=%#TabLine#%999Xclose'
-"   endif
-"
-"   return s
-" endfunction
-" function MyTabLabel(n)
-"   let buflist = tabpagebuflist(a:n)
-"   let winnr = tabpagewinnr(a:n)
-"   return bufname(buflist[winnr - 1])
-" endfunction
-" function! MyTabLine()
-"   let s = ''
-"   for i in range(tabpagenr('$'))
-"     let tabnr = i + 1 " range() starts at 0
-"     let winnr = tabpagewinnr(tabnr)
-"     let buflist = tabpagebuflist(tabnr)
-"     let bufnr = buflist[winnr - 1]
-"     let bufname = fnamemodify(bufname(bufnr), ':t')
-"
-"     let s .= '%' . tabnr . 'T'
-"     let s .= (tabnr == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
-"     let s .= ' ' . tabnr
-"
-"     let n = tabpagewinnr(tabnr,'$')
-"     if n > 1 | let s .= ':' . n | endif
-"
-"     let s .= empty(bufname) ? ' [No Name] ' : ' ' . bufname . ' '
-"
-"     let bufmodified = getbufvar(bufnr, "&mod")
-"     if bufmodified | let s .= '+ ' | endif
-"   endfor
-"   let s .= '%#TabLineFill#'
-"   return s
-" endfunction
-" set tabline=%!MyTabLine()
-
-" always show signcolumns
-set signcolumn=yes
+source ~/.config/nvim/theme/bar.vim
+source ~/.config/nvim/theme/tab.vim
 
 " #########################
 " mappings
@@ -336,26 +224,21 @@ set signcolumn=yes
 	map <leader>oi :setlocal spell! spelllang=en_us<CR>
 	map <leader>ot :setlocal spell! spelllang=es,en_us<CR>
 
-" correr la macro en q
+" correr la macro en q, que aveces sin querer la sobreescribo
     nnoremap <Leader><Space> @q
-
-" continuar desde el ultimo lugar trabajado
-	" execute 'nmap ñ a'.comentario.'<+Continuar+> <esc>'
-
-" saltar entre palabras clave <+palabra+>
-	" nnoremap <Leader>l /<+.\{-1,}+><cr>c/+>/e<cr>
-	" inoremap <Leader>l <ESC>/<+.\{-1,}+><cr>c/+>/e<cr>
 
 " mostrar las marcas
     nnoremap '? :marks <cr>
 
-    " para solo mostrar las marcas dentro del archivo
+" para solo mostrar las marcas dentro del archivo
 	nnoremap <Leader>' :marks abcdefghijklmnopqrstuvwxyz<cr>:'
 
-    " estoy usando floatterm en vez
+" abrir terminal
     noremap <Leader>. <esc> :vsp <cr> :term <cr>
 
-	noremap <Leader>ñ :vsp <cr> :60wincmd < <cr> :Explore <cr>
+" el mejor fuzzy finder que he encontrado en nativo
+	noremap <Leader>ñ :e **/*
+	noremap <Leader>t :Lexplore <cr>
 
 " porque quiero, puedo y no tengo miedo
 	nnoremap <Leader>c :call Compilar() <cr>
@@ -368,7 +251,6 @@ set signcolumn=yes
 
 " compilar con make y mostrar salida
     " nnoremap <Leader>m :make <cr>
-    " nnoremap <Leader>m :Dispatch <cr>
     nnoremap <Leader><C-m> :copen <cr>
     " nnoremap <Leader>m :lopen 5 <cr>
     nnoremap <Leader>m :botright lwindow 5<cr>
@@ -390,9 +272,6 @@ set signcolumn=yes
     noremap <Leader>wv <esc>:vsp<cr>
     noremap <Leader>ws <esc>:sp<cr>
     noremap <Leader>wt <esc>:tabnew %<cr>
-
-" cerrar sesion
-    noremap <Leader>q <esc> :SClose<cr>
 
 " final funciones con <Leader> -----------------------------------
 
@@ -416,13 +295,13 @@ set signcolumn=yes
     vnoremap <tab> >gv
     vnoremap <S-tab> <gv
 
-    noremap <tab> <c-w>
+    nnoremap <tab> <c-w>
 
 " copiar y pegar
 	vnoremap <C-c> "*y :let @+=@* <cr>
 	nnoremap <C-c> "*yy:let @+=@*<cr>
 	inoremap <C-c> <esc>"*yy:let @+=@*<cr>a
-	nnoremap <C-p> "+P
+	"nnoremap <C-p> "+P
 " pegar en insert
 	inoremap <C-p> <esc>"+pa
     inoremap <C-v> <esc>"+pa
@@ -447,6 +326,7 @@ set signcolumn=yes
 
 " cargar templates previamente establecidos, en caso de no existir, no hace
 " nada
+" deberia hacer algo asi mas para snippets que para esto
 function! LoadTemplate(extension)
 	silent! execute '0r ~/.config/nvim/templates/templates/T*-'.a:extension.'-*.tpl'
 	silent! execute 'source ~/.config/nvim/templates/patterns/P*-'.a:extension.'-*.tpl'
