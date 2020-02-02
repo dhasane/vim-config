@@ -20,8 +20,6 @@
 " N::::::N        N::::::NE::::::::::::::::::::E   OO:::::::::OO              V:::V           I::::::::IM::::::M               M::::::M
 " NNNNNNNN         NNNNNNNEEEEEEEEEEEEEEEEEEEEEE     OOOOOOOOO                 VVV            IIIIIIIIIIMMMMMMMM               MMMMMMMM
 
-" pag 93
-
 " #########################
 " general
 " #########################
@@ -30,9 +28,9 @@
 let mapleader = ","
 
 " plugins
-source ~/.config/nvim/plug.vim
 " packadd termdebug
-
+"
+set t_Co=256
 " if &t_Co > 255
 "     " color definitions
 " endif
@@ -40,9 +38,6 @@ source ~/.config/nvim/plug.vim
 "     " color definitions
 " endif
 
-if (has("termguicolors"))
-  set termguicolors
-endif
 
 autocmd BufNewFile * silent! call LoadTemplate('%:e') " cargar templates
 
@@ -59,33 +54,22 @@ if &compatible
 endif
 
 set path+=.**
-" set wildmenu
-" set wildmode=longest,list,full
+set wildmenu
+set wildmode=longest,list,full
 
-" set statusline+=%F
-
-" set splitbelow splitright
-" highlight Normal ctermbg=0  "25
-
-" set spellsuggest=10 " muestra las primeras 10 palabras recomendadas
+set spellsuggest=10 " muestra las primeras 10 palabras recomendadas
 "set statusline=%F%m%r%h%w\ [TYPE=%Y]\ [POS=%04l,%04v]\ [%p%%]\ [LEN=%L]
 
 " Where to look for tags files
 set tags=~/.config/nvim/tags
 "command! MakeTags !ctags -R .
 
-let comentario = ""
-
-" let g:python_host_prog = "/usr/bin/python2"
-" let g:python3_host_prog = "/usr/bin/python3"
 if has('python3') " primera opcion
   set pyx=3
 elseif has('python2') " segunda opcion
   set pyx=2
 endif
 
-" autocmd BufWritePre * %s/\s\+$//e " quitar espacios ' ' sobrantes al final
-" autocmd FileType c,cpp,vim,java,php,rust,python autocmd BufWritePre <buffer> %s/\s\+$//e
 " autocmd FileType c,cpp,vim,java,php,rust,python autocmd BufWritePre * :call StripEndlineComments()
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
@@ -121,7 +105,6 @@ set encoding=utf-8
 
 set linebreak
 
-
 set list listchars=tab:»·,trail:·  " configuracion cool que encontre para mostrar espacios al inicio y al final de la linea
 
 set breakindent
@@ -149,12 +132,46 @@ set clipboard=unnamedplus  " en para el clipboard, en teoria
 set ignorecase " make searches case insensitive
 set nohlsearch  " highlight matching search strings
 
+    set hidden
+
+    " Some servers have issues with backup files, see #649
+    set nobackup
+    set nowritebackup
+
+    " Better display for messages
+    set cmdheight=2
+
+    " You will have bad experience for diagnostic messages when it's default 4000.
+    set updatetime=300
+
+    " don't give |ins-completion-menu| messages.
+    set shortmess+=c
+
+    " always show signcolumns
+    set signcolumn=yes
+
 " set completeopt+=preview
-" set completeopt+=menuone,preview
+set completeopt+=longest,menuone,preview
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+set omnifunc=syntaxcomplete#Complete
 
 " #######################
 " visual
 " ######################
+
+if (has("termguicolors"))
+  set termguicolors
+endif
+
+" Correct RGB escape codes for vim inside tmux
+if !has('nvim') && $TERM ==# 'screen-256color'
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
+set background=dark
+colorscheme desert
 
 " cursor
 
@@ -338,8 +355,7 @@ set signcolumn=yes
     " estoy usando floatterm en vez
     noremap <Leader>. <esc> :vsp <cr> :term <cr>
 
-    " para esto estoy usando Clap
-	" noremap <Leader>ñ :FZF <cr>
+	noremap <Leader>ñ :vsp <cr> :60wincmd < <cr> :Explore <cr>
 
 " porque quiero, puedo y no tengo miedo
 	nnoremap <Leader>c :call Compilar() <cr>
@@ -381,7 +397,7 @@ set signcolumn=yes
 " final funciones con <Leader> -----------------------------------
 
     nnoremap gb gT
-	" quitar modo Ex - que ademas ni idea para que sirve :v
+" quitar modo Ex - que ademas ni idea para que sirve :v
 	nnoremap Q <nop>
 
 	inoremap <C-a> <esc>
@@ -390,9 +406,6 @@ set signcolumn=yes
 	 noremap <C-s> :w<cr>
 	inoremap <C-s> <esc><esc>:w<cr>
 	vnoremap <C-s> <esc><esc>:w<cr>
-	"  noremap <C-s> m':w<cr>`'
-	" inoremap <C-s> <esc><esc>m':w<cr>`'
-	" vnoremap <C-s> <esc><esc>m':w<cr>`'
 " deshacer
 	inoremap <C-z> <esc> ui
 	 noremap <C-z> u
@@ -400,15 +413,10 @@ set signcolumn=yes
      noremap <C-q> <esc>:q<cr>
     inoremap <C-q> <esc><esc>:wq<cr>
 
-	"  noremap <C-q> <esc>:call Cerrar()<cr>
-	" inoremap <C-q> <esc><esc>:call Cerrar()<cr>
-
-    "make < > shifts keep selection
     vnoremap <tab> >gv
     vnoremap <S-tab> <gv
 
-    nnoremap <tab> >>
-    nnoremap <S-tab> <<
+    noremap <tab> <c-w>
 
 " copiar y pegar
 	vnoremap <C-c> "*y :let @+=@* <cr>
@@ -451,6 +459,7 @@ function! IrACursor()
 	:call search('!cursor!','b')
 endfunction
 
+" esto sigue en desarrollo ya que no lo he necesitado
 function! DebugA()
 	let nom = expand('%:p')
 	let comp = expand('%:p:r')
@@ -488,6 +497,8 @@ function Compilar()
 		execute ':! g++ '.nom.' -ggdb -o '.comp
 	elseif ( ext == "py" )
 		execute ':! python '.nom
+	elseif ( ext == "rb" )
+		execute ':! ruby '.nom
 	elseif ( ext == "rs" )
 		" execute ':! rustc '.nom
 		execute ':! cargo run '
