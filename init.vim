@@ -25,7 +25,7 @@ let mapleader = ","
 
 " plugins
 source ~/.config/nvim/plug.vim
-" packadd termdebug
+packadd termdebug
 
 " if &t_Co > 255
 "     " color definitions
@@ -352,18 +352,27 @@ function Compilar()
     " para guardar el archivo antes de compilarlo, ya que usualmente me olvido :v
     execute ':w'
 
+    let runc = ""
 	if ( ext == "c" )
-		execute ':! gcc '.nom.' -o '.comp
+		let runc = 'gcc '.nom.' -o '.comp
 	elseif ( ext == "cxx" || ext =="cpp" )
-		execute ':! g++ '.nom.' -ggdb -o '.comp
+		let runc = 'g++ '.nom.' -ggdb -o '.comp
 	elseif ( ext == "py" )
-		execute ':! python '.nom
+		let runc = 'python '.nom
+	elseif ( ext == "md" )
+        let runc = 'pandoc -s -o '.comp.'.pdf '.nom.' ; xdg-open '.comp.'.pdf'
 	elseif ( ext == "rs" )
-		" execute ':! rustc '.nom
-		execute ':! cargo run '
+		" run = ':! rustc '.nom
+		let runc = 'cargo run '
 	else
 		echom 'lenguaje no integrado'
 	endif
+
+    if ( runc != "" )
+        " echo runc
+        execute ':silent ! ( '.runc.' )&> /dev/null & '
+        " echo 'compilado'
+    endif
 
 endfunction
 
