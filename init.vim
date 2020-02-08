@@ -145,16 +145,16 @@ inoremap <Down> <C-R>=pumvisible() ? "\<lt>C-N>" : "\<lt>Down>"<CR>
 inoremap <UP> <C-R>=pumvisible() ? "\<lt>C-P>" : "\<lt>Up>"<CR>
 
 set omnifunc=syntaxcomplete#Complete
-set complete
+" set complete
 set completeopt=menu,longest,menuone,preview
 
-inoremap <expr> . MayComplete()
-func MayComplete()
-    if (can complete)
-      return ".\<C-X>\<C-O>"
-    endif
-    return '.'
-endfunc
+" inoremap <expr> . MayComplete()
+" func MayComplete()
+    " if (can complete)
+      " return ".\<C-X>\<C-O>"
+    " endif
+    " return '.'
+" endfunc
 
 let g:netrw_liststyle = 3
 let g:netrw_banner = 0
