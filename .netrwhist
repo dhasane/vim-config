@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =6
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/home/dhas/Downloads/cinep'
 let g:netrw_dirhist_6='/home/dhas/.local/share/Steam/steamapps/common/Noita/mods/prueba2/data/items_gfx'
 let g:netrw_dirhist_5='/home/dhas/.cfg'
 let g:netrw_dirhist_4='/home/dhas/repos/prog/IA/evolutiva/evolutivaEj'

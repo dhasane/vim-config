@@ -55,7 +55,6 @@ endif
 set path+=.**
 
 set spellsuggest=10 " muestra las primeras 10 palabras recomendadas
-"set statusline=%F%m%r%h%w\ [TYPE=%Y]\ [POS=%04l,%04v]\ [%p%%]\ [LEN=%L]
 
 " Where to look for tags files
 set tags=~/.config/nvim/tags
@@ -184,6 +183,11 @@ set signcolumn=yes
 
 " secuencia de escape de la terminal de vim
     tnoremap <Esc> <C-\><C-n>
+" para mover desde la terminal
+	tnoremap <C-h> <C-\><C-n><C-w>h
+	tnoremap <C-j> <C-\><C-n><C-w>j
+	tnoremap <C-k> <C-\><C-n><C-w>k
+	tnoremap <C-l> <C-\><C-n><C-w>l
 
 " verificacion de escritura
 	map <leader>oe :setlocal spell! spelllang=es<CR>
@@ -278,7 +282,7 @@ set signcolumn=yes
 
     " nnoremap <tab> >>
     " nnoremap <S-tab> <<
-    noremap <tab> <C-w>
+    nnoremap <tab> <C-w>
 
 " copiar y pegar
 	vnoremap <C-c> "*y :let @+=@* <cr>
@@ -392,9 +396,13 @@ function! Cerrar()
 endfunction
 
 fun! <SID>StripTrailingWhitespaces()
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    call cursor(l, c)
+	let ext = expand('%:e')
+
+    if( ext != "md" && ext != "csv" ) " no limpiar lineas en markdown
+        let l = line(".")
+        let c = col(".")
+        %s/\s\+$//e
+        call cursor(l, c)
+    endif
 endfun
 
