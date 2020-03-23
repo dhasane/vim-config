@@ -26,14 +26,15 @@ call plug#begin('~/.vim/plugged')
  " Plug 'gruvbox-material/vim', {'as': 'gruvbox-material'}
 
  Plug 'liuchengxu/vista.vim'						" informacion sobre partes importantes del archivo
- Plug 'itchyny/lightline.vim'  						" mejor barra de informacion
+ " Plug 'itchyny/lightline.vim'  						" mejor barra de informacion
  Plug 'mbbill/undotree'                             " historial de cambios
  Plug 'christoomey/vim-tmux-navigator'  			" simplificar movimiento entre vim y tmux
  Plug 'scrooloose/nerdcommenter'  					" bonito comentador
 
  Plug 'puremourning/vimspector'                     " debbuger
 
- Plug 'liuchengxu/vim-clap', { 'do': function('clap#helper#build_all') }
+ " Plug 'liuchengxu/vim-clap', { 'do': function('clap#helper#build_all') }
+ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
  " Plug 'tpope/vim-dispatch'
 
  " git gud
@@ -44,6 +45,7 @@ call plug#begin('~/.vim/plugged')
  Plug 'neoclide/coc.nvim', {'branch': 'release'}
  Plug 'sheerun/vim-polyglot'
  Plug 'PotatoesMaster/i3-vim-syntax'
+
 " linting
  " Plug 'neomake/neomake'
  Plug 'dense-analysis/ale'
@@ -133,8 +135,8 @@ call plug#end()
 	" let g:gruvbox_contrast_dark = "soft"
     "
 	" let g:gruvbox_italicize_comments=1
-    set background=dark
     " set background=light
+    set background=dark
     colorscheme gruvbox8_soft
 
 
@@ -143,16 +145,16 @@ call plug#end()
     let g:coc_global_extensions = [
                 \ 'coc-yank',
                 \ 'coc-vimlsp',
-                \ 'coc-prettier',
                 \ 'coc-pairs',
-                \ 'coc-explorer',
                 \ 'coc-rust-analyzer',
                 \ 'coc-python',
                 \ 'coc-json',
                 \ 'coc-java'
                 \]
 
+                " \ 'coc-pretier',
                 " \ 'coc-git',
+                " \ 'coc-explorer',
 
     " CocCommand snippets.editSnippets
 
@@ -222,7 +224,7 @@ call plug#end()
     endfunction
 
     " Highlight symbol under cursor on CursorHold
-    autocmd CursorHold * silent call CocActionAsync('highlight')
+    " autocmd CursorHold * silent call CocActionAsync('highlight')
 
     " Remap for rename current word
     nmap <leader>rn <Plug>(coc-rename)
@@ -394,62 +396,4 @@ let g:vimspector_enable_mappings = 'HUMAN'
 	noremap <Leader>ñ :Clap files <cr>
 	noremap <Leader>s :Clap blines <cr>
 	noremap <Leader>p :Clap <cr>
-
-" status bar
-
-    " source ~/.config/nvim/theme/gruvbox.vim
-    " source ~/.config/nvim/theme/gruvbox_material.vim
-    source ~/.config/nvim/theme/gruvbox_material_dark.vim
-    " source ~/.config/nvim/theme/gruvbox_material_light.vim
-        " \ 'colorscheme': 'gruvbox',
-    let g:lightline = {
-        \ 'colorscheme': 'gruvbox_material',
-        \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ],
-        \             [ 'readonly','gitbranch' , 'filename', 'modified'] ],
-        \   'right': [ [ 'lineinfo' ],
-        \              [ 'percent', 'gitblame' ],
-        \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
-        \ },
-        \ 'inactive': {
-        \       'left': [ [ 'filename' ] ],
-        \       'right': [ [ 'lineinfo' ] ]
-        \ },
-        \ 'tabline': {
-        \       'left': [ [ 'tabs' ] ],
-        \       'right': [ ]
-        \ },
-        \ 'separator' : { 'left': '', 'right': '' },
-        \ 'subseparator' : { 'left': '|', 'right': '|' },
-        \ 'tabline_separator': { 'left': '', 'right': '' },
-        \ 'tabline_subseparator': { 'left': '', 'right': '' },
-        \ 'component_function': {
-        \       'filename': 'FilenameForLightline',
-        \       'gitbranch': 'GitBranchLL',
-        \       'gitblame': 'LightlineGitBlame'
-        \ },
-        \ }
-
-        function! GitBranchLL()
-            let br = fugitive#head()
-            if br != ""
-                return br." "
-            endif
-            return ""
-        endfunction
-
-        " Show path of filename
-        function! FilenameForLightline()
-            return expand('%')
-        endfunction
-
-        function! LightlineGitBlame()
-          let blame = get(b:, 'coc_git_blame', '')
-          return blame
-          " return winwidth(0) > 120 ? blame : ''
-        endfunction
-
-
-
-
 

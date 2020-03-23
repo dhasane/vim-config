@@ -19,7 +19,8 @@
     "coc.preferences.extensionUpdateCheck": "never",
     "suggest.disableMenu": true,
 
-
+    "yank.enableCompletion" : false,
+    "java.jdt.ls.vmargs": "-Dfile.encoding=UTF-8",
 
     "python.linting.pylintUseMinimalCheckers": true,
     "python.linting.pylintPath": "pylint",
@@ -57,5 +58,6 @@
       "filetypes": ["sh"],
       "ignoredRootPaths": ["~"]
     }
-    }
+    },
+    "java.errors.incompleteClasspath.severity": "ignore"
 }
