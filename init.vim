@@ -64,11 +64,11 @@ let comentario = ""
 
 " let g:python_host_prog = "/usr/bin/python2"
 " let g:python3_host_prog = "/usr/bin/python3"
-if has('python3') " primera opcion
-  set pyx=3
-elseif has('python2') " segunda opcion
-  set pyx=2
-endif
+" if has('python3') " primera opcion
+"   set pyx=3
+" elseif has('python2') " segunda opcion
+"   set pyx=2
+" endif
 
 " autocmd FileType c,cpp,vim,java,php,rust,python autocmd BufWritePre * :call StripEndlineComments()
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
@@ -103,13 +103,26 @@ syntax on
 syntax enable
 set encoding=utf-8
 
+" scriptencoding utf-8
+" set enc=utf-8
+" set fileencoding=utf-8
+" set fileencodings=ucs-bom,utf8,prc
+
+"enables codefolding"
+" set foldmethod=indent
+" set foldnestmax=10
+" set foldcolumn=2
+" set nofoldenable
+" set foldlevel=1
+
+" set list listchars=tab:-\ \,trail:¬∑ "set points after
+set list listchars=tab:»·,trail:·  " configuracion cool que encontre para mostrar espacios al inicio y al final de la linea
+
 set noswapfile
 
 set linebreak
-
-set list listchars=tab:»·,trail:·  " configuracion cool que encontre para mostrar espacios al inicio y al final de la linea
-
 set breakindent
+set showbreak=\
 set smarttab  "Improves tabbing
 set expandtab " Use spaces instead of tabs
 set tabstop=4  "How much space Vim gives to a tab
@@ -134,8 +147,13 @@ set clipboard=unnamedplus  " en para el clipboard, en teoria
 set ignorecase " make searches case insensitive
 set hlsearch  " highlight matching search strings
 
-" set completeopt+=preview
-" set completeopt+=menuone,preview
+set completeopt+=menuone
+set completeopt+=preview
+
+let g:netrw_liststyle = 3
+let g:netrw_banner = 0
+let g:netrw_browse_split = 4
+let g:netrw_winsize = 25
 
 " tamaño minimo de una vista
 set winheight=25
@@ -178,6 +196,9 @@ set cursorline " cambia el color de la linea en la que se encuentra el cursor
 " always show signcolumns
 set signcolumn=yes
 
+source ~/.config/nvim/theme/bar.vim
+source ~/.config/nvim/theme/tab.vim
+
 " #########################
 " mappings
 " #########################
@@ -216,11 +237,12 @@ set signcolumn=yes
     " para solo mostrar las marcas dentro del archivo
 	nnoremap <Leader>' :marks abcdefghijklmnopqrstuvwxyz<cr>:'
 
-    " estoy usando floatterm en vez
+    " terminal
     noremap <Leader>. <esc> :vsp <cr> :term <cr>
 
     " para esto estoy usando Clap
     noremap <Leader>ñ :FZF <cr>
+    " noremap <Leader>; :FZF <cr>
 
 " porque quiero, puedo y no tengo miedo
 	nnoremap <Leader>c :call Compilar() <cr>
@@ -241,6 +263,7 @@ set signcolumn=yes
 "mover entre buffers
     noremap <Leader>j <esc>:bp<cr>
     noremap <Leader>k <esc>:bn<cr>
+    " jetpack
     noremap <Leader>l :ls<CR>:b<space>
 
 " Close buffer (without closing window)
