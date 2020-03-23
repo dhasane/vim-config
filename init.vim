@@ -145,8 +145,8 @@ set clipboard=unnamedplus  " en para el clipboard, en teoria
 set ignorecase " make searches case insensitive
 set hlsearch  " highlight matching search strings
 
-" set completeopt+=preview
-set completeopt+=menuone, preview
+set completeopt+=menuone
+set completeopt+=preview
 
 let g:netrw_liststyle = 3
 let g:netrw_banner = 0
