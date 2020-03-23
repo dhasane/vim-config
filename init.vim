@@ -103,6 +103,8 @@ syntax on
 syntax enable
 set encoding=utf-8
 
+set noswapfile
+
 set linebreak
 
 set list listchars=tab:»·,trail:·  " configuracion cool que encontre para mostrar espacios al inicio y al final de la linea
@@ -134,6 +136,10 @@ set hlsearch  " highlight matching search strings
 
 " set completeopt+=preview
 " set completeopt+=menuone,preview
+
+" tamaño minimo de una vista
+set winheight=25
+set winwidth=90
 
 " #######################
 " visual
@@ -214,7 +220,7 @@ set signcolumn=yes
     noremap <Leader>. <esc> :vsp <cr> :term <cr>
 
     " para esto estoy usando Clap
-	" noremap <Leader>ñ :FZF <cr>
+    noremap <Leader>ñ :FZF <cr>
 
 " porque quiero, puedo y no tengo miedo
 	nnoremap <Leader>c :call Compilar() <cr>
@@ -374,7 +380,8 @@ function Compilar()
 
     if ( runc != "" )
         " echo runc
-        execute ':silent ! ( '.runc.' )&> /dev/null & '
+        execute ':! '.runc
+        " execute ':silent ! ( '.runc.' )&> /dev/null & '
         " echo 'compilado'
     endif
 

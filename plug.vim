@@ -33,7 +33,7 @@ call plug#begin('~/.vim/plugged')
 
  Plug 'puremourning/vimspector'                     " debbuger
 
- Plug 'liuchengxu/vim-clap', { 'do': function('clap#helper#build_all') }
+ " Plug 'liuchengxu/vim-clap', { 'do': function('clap#helper#build_all') }
  " Plug 'tpope/vim-dispatch'
 
  " git gud
@@ -389,11 +389,11 @@ let g:vimspector_enable_mappings = 'HUMAN'
     autocmd User Startified setlocal buflisted
     noremap <Leader>< <esc> :FloatermToggle <cr>
 
-" Clap
-
-	noremap <Leader>ñ :Clap files <cr>
-	noremap <Leader>s :Clap blines <cr>
-	noremap <Leader>p :Clap <cr>
+" " Clap
+"
+"     noremap <Leader>ñ :Clap files <cr>
+"     noremap <Leader>s :Clap blines <cr>
+"     noremap <Leader>p :Clap <cr>
 
 " status bar
 
