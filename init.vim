@@ -145,7 +145,7 @@ set clipboard=unnamedplus  " en para el clipboard, en teoria
 set ignorecase " make searches case insensitive
 set hlsearch  " highlight matching search strings
 
-set completeopt+=menuone
+set completeopt=menuone
 set completeopt+=preview
 
 let g:netrw_liststyle = 3
@@ -233,6 +233,9 @@ source ~/.config/nvim/theme/tab.vim
 
     " terminal
     noremap <Leader>. <esc> :vsp <cr> :term <cr>
+
+    " ver arbol de archivos
+	noremap <Leader>t :Lexplore <cr>
 
     " para esto estoy usando Clap
     noremap <Leader>; :FZF <cr>

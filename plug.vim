@@ -1,9 +1,9 @@
 
 
 "if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
-"	echo "Downloading junegunn/vim-plug to manage plugins..."
-"	silent !mkdir -p ~/.config/nvim/autoload/
-"	silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ~/.config/nvim/autoload/plug.vim
+"   echo "Downloading junegunn/vim-plug to manage plugins..."
+"   silent !mkdir -p ~/.config/nvim/autoload/
+"   silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ~/.config/nvim/autoload/plug.vim
 "endif
 
 " instalar manejador de plugins en caso de no estar presente
@@ -20,16 +20,16 @@
 call plug#begin('~/.vim/plugged')
 
  " utilidades
- Plug 'mhinz/vim-startify' 							" bonita pantalla de inicio
- " Plug 'morhetz/gruvbox'								" colores cheveres :D
+ Plug 'mhinz/vim-startify'                          " bonita pantalla de inicio
+ " Plug 'morhetz/gruvbox'                               " colores cheveres :D
  Plug 'lifepillar/vim-gruvbox8'
  " Plug 'gruvbox-material/vim', {'as': 'gruvbox-material'}
 
- Plug 'liuchengxu/vista.vim'						" informacion sobre partes importantes del archivo
- " Plug 'itchyny/lightline.vim'  						" mejor barra de informacion
+ Plug 'liuchengxu/vista.vim'                        " informacion sobre partes importantes del archivo
+ " Plug 'itchyny/lightline.vim'                         " mejor barra de informacion
  Plug 'mbbill/undotree'                             " historial de cambios
- Plug 'christoomey/vim-tmux-navigator'  			" simplificar movimiento entre vim y tmux
- Plug 'scrooloose/nerdcommenter'  					" bonito comentador
+ Plug 'christoomey/vim-tmux-navigator'              " simplificar movimiento entre vim y tmux
+ Plug 'scrooloose/nerdcommenter'                    " bonito comentador
 
  Plug 'puremourning/vimspector'                     " debbuger
 
@@ -66,38 +66,38 @@ call plug#end()
       return centered_lines
     endfunction
 
-	let g:ascii = [
-\'                   _		',
-\'                  / /\					',
-\'                 / /  \					',
-\'                / / /\ \					',
-\'               / / /\ \ \					',
-\'              / / /  \ \ \				',
-\'             / / /    \ \ \				',
-\'            / / /      \ \ \				',
-\'           / / /        \ \ \				',
-\'          / / /          \ \ \			',
-\'         / / /   _   _    \ \ \			',
-\'        / / /\  /\ \/ /\  /\ \ \			',
-\'      .`.`.`\ \ \ \/ / / / /`.`.`.',
-\'    .`.`.` \ \ \ \/ / / / / / `.`.`.',
-\'  .`.`.`    \ \ \/ / /\/ / /    `.`.`.',
+    let g:ascii = [
+\'                   _                    ',
+\'                  / /\                  ',
+\'                 / /  \                 ',
+\'                / / /\ \                ',
+\'               / / /\ \ \               ',
+\'              / / /  \ \ \              ',
+\'             / / /    \ \ \             ',
+\'            / / /      \ \ \            ',
+\'           / / /        \ \ \           ',
+\'          / / /          \ \ \          ',
+\'         / / /   _   _    \ \ \         ',
+\'        / / /\  /\ \/ /\  /\ \ \        ',
+\'      .`.`.`\ \ \ \/ / / / /`.`.`.      ',
+\'    .`.`.` \ \ \ \/ / / / / / `.`.`.    ',
+\'  .`.`.`    \ \ \/ / /\/ / /    `.`.`.  ',
 \'.`.`.`       \ \ \/ /\/ / /       `.`.`.',
 \'`.`.`.        \_\  /\  /_/        .`.`.`',
-\'  `.`.`.      / /  \/  \ \      .`.`.`',
-\'    `.`.`.   / / /\ \/\ \ \   .`.`.`',
-\'      `.`.`./ / /\ \ \/\ \ \.`.`.`',
-\'        \ \ \/ / /\ \ \ \ \/ / /',
-\'         \ \ \/ /_/\ \ \ \/ / /',
-\'          \ \ \ \_\/\_\/ / / /',
-\'           \ \ \        / / /',
-\'            \ \ \      / / /',
-\'             \ \ \    / / /',
-\'              \ \ \  / / /',
-\'               \ \ \/ / /',
-\'                \ \ \/ /',
-\'                 \ \  /',
-\'                  \_\/']
+\'  `.`.`.      / /  \/  \ \      .`.`.`  ',
+\'    `.`.`.   / / /\ \/\ \ \   .`.`.`    ',
+\'      `.`.`./ / /\ \ \/\ \ \.`.`.`      ',
+\'        \ \ \/ / /\ \ \ \ \/ / /        ',
+\'         \ \ \/ /_/\ \ \ \/ / /         ',
+\'          \ \ \ \_\/\_\/ / / /          ',
+\'           \ \ \        / / /           ',
+\'            \ \ \      / / /            ',
+\'             \ \ \    / / /             ',
+\'              \ \ \  / / /              ',
+\'               \ \ \/ / /               ',
+\'                \ \ \/ /                ',
+\'                 \ \  /                 ',
+\'                  \_\/                  ']
 
     let g:startify_custom_header = s:center(g:ascii)
 
@@ -110,13 +110,13 @@ call plug#end()
 
     " archivos importantes
     let g:startify_bookmarks = [
-		\{'v': '~/.config/nvim/init.vim'},
-		\{'vp': '~/.config/nvim/plug.vim'},
+        \{'v': '~/.config/nvim/init.vim'},
+        \{'vp': '~/.config/nvim/plug.vim'},
         \{'i3': '~/.config/i3/config'},
-		\{'z': '~/.config/zsh/zshrc'},
-		\{'a': '~/.config/aliasrc'},
-		\{'t': '~/.config/tmux/tmux.conf'}
-		\]
+        \{'z': '~/.config/zsh/zshrc'},
+        \{'a': '~/.config/aliasrc'},
+        \{'t': '~/.config/tmux/tmux.conf'}
+        \]
 
 
 " colorscheme
@@ -124,17 +124,17 @@ call plug#end()
     " let g:gruvbox8
     " if []
 
-	" let g:gruvbox_bold = 1
-	" let g:gruvbox_underline = 1
-	" let g:gruvbox_undercurl = 1
-	" let g:gruvbox_termcolors = 256
-	" let g:gruvbox_improved_strings = 1
-	" let g:gruvbox_improved_warnings = 1
+    " let g:gruvbox_bold = 1
+    " let g:gruvbox_underline = 1
+    " let g:gruvbox_undercurl = 1
+    " let g:gruvbox_termcolors = 256
+    " let g:gruvbox_improved_strings = 1
+    " let g:gruvbox_improved_warnings = 1
     "
     " " soft, medium, hard
-	" let g:gruvbox_contrast_dark = "soft"
+    " let g:gruvbox_contrast_dark = "soft"
     "
-	" let g:gruvbox_italicize_comments=1
+    " let g:gruvbox_italicize_comments=1
     " set background=light
     set background=dark
     colorscheme gruvbox8_soft
@@ -153,8 +153,6 @@ call plug#end()
                 \]
 
                 " \ 'coc-pretier',
-                " \ 'coc-git',
-                " \ 'coc-explorer',
 
     " CocCommand snippets.editSnippets
 
@@ -293,10 +291,6 @@ call plug#end()
     " coc-yank
         nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
 
-    " coc-explorer
-        " noremap <Leader>t :NERDTreeToggle<cr>
-        noremap <Leader>t :CocCommand explorer<CR>
-
 " para unir esto a tmux
 " let g:tmux_navigator_no_mappings = 1
 
@@ -315,51 +309,36 @@ call plug#end()
     let g:tmux_navigator_save_on_switch = 2
 
 " nerdcommenter
-	nnoremap <C-_> :call NERDComment('Toggle', 'Toggle')<CR>
-	inoremap <C-_> <esc>:call NERDComment('Toggle', 'Toggle')<CR>
-	vnoremap <C-_> :call NERDComment('Toggle', 'Toggle')<CR>gv
-	" Add spaces after comment delimiters by default
-	let g:NERDSpaceDelims = 1
+    nnoremap <C-_> :call NERDComment('Toggle', 'Toggle')<CR>
+    inoremap <C-_> <esc>:call NERDComment('Toggle', 'Toggle')<CR>
+    vnoremap <C-_> :call NERDComment('Toggle', 'Toggle')<CR>gv
+    " Add spaces after comment delimiters by default
+    let g:NERDSpaceDelims = 1
 
-	" Use compact syntax for prettified multi-line comments
-	let g:NERDCompactSexyComs = 1
+    " Use compact syntax for prettified multi-line comments
+    let g:NERDCompactSexyComs = 1
 
-	" Align line-wise comment delimiters flush left instead of following code indentation
-	let g:NERDDefaultAlign = 'left'
+    " Align line-wise comment delimiters flush left instead of following code indentation
+    let g:NERDDefaultAlign = 'left'
 
-	" Allow commenting and inverting empty lines (useful when commenting a region)
-	let g:NERDCommentEmptyLines = 1
+    " Allow commenting and inverting empty lines (useful when commenting a region)
+    let g:NERDCommentEmptyLines = 1
 
-	" Enable trimming of trailing whitespace when uncommenting
-	let g:NERDTrimTrailingWhitespace = 1
+    " Enable trimming of trailing whitespace when uncommenting
+    let g:NERDTrimTrailingWhitespace = 1
 
-	" Enable NERDCommenterToggle to check all selected lines is commented or not
-	let g:NERDToggleCheckAllLines = 1
+    " Enable NERDCommenterToggle to check all selected lines is commented or not
+    let g:NERDToggleCheckAllLines = 1
 
 
 " vimspector
 " let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
 let g:vimspector_enable_mappings = 'HUMAN'
 
-" neomake
-
-    " When writing a buffer (no delay).
-    " call neomake#configure#automake('w')
-    " When writing a buffer (no delay), and on normal mode changes (after 750ms).
-    " call neomake#configure#automake('nw', 750)
-    " When reading a buffer (after 1s), and when writing (no delay).
-    " call neomake#configure#automake('rw', 1000)
-    " Full config: when writing or reading a buffer, and on changes in insert and
-    " normal mode (after 500ms; no delay when writing).
-
-
-    " call neomake#configure#automake('nrwi', 500)
-    " tambien se pueden llamar otros procesos
-
 " gitgutter
-	let g:gitgutter_max_signs = 200
-	" nmap ]h <Plug>(GitGutterNextHunk)
-	" nmap [h <Plug>(GitGutterPrevHunk)
+    let g:gitgutter_max_signs = 200
+    " nmap ]h <Plug>(GitGutterNextHunk)
+    " nmap [h <Plug>(GitGutterPrevHunk)
 
 " undotree
 
@@ -393,7 +372,7 @@ let g:vimspector_enable_mappings = 'HUMAN'
 
 " Clap
 
-	noremap <Leader>ñ :Clap files <cr>
-	noremap <Leader>s :Clap blines <cr>
-	noremap <Leader>p :Clap <cr>
+    noremap <Leader>ñ :Clap files <cr>
+    noremap <Leader>s :Clap blines <cr>
+    noremap <Leader>p :Clap <cr>
 
