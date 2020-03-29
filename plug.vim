@@ -26,7 +26,6 @@ call plug#begin('~/.vim/plugged')
  " Plug 'gruvbox-material/vim', {'as': 'gruvbox-material'}
 
  Plug 'liuchengxu/vista.vim'                        " informacion sobre partes importantes del archivo
- " Plug 'itchyny/lightline.vim'                         " mejor barra de informacion
  Plug 'mbbill/undotree'                             " historial de cambios
  Plug 'christoomey/vim-tmux-navigator'              " simplificar movimiento entre vim y tmux
  Plug 'scrooloose/nerdcommenter'                    " bonito comentador
@@ -102,43 +101,26 @@ call plug#end()
     let g:startify_custom_header = s:center(g:ascii)
 
     let g:startify_lists = [
-          \ { 'type': 'files',     'header': ['   Recent']            },
-          \ { 'type': 'sessions',  'header': ['   Sessions']       },
-          \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-          \ { 'type': 'commands',  'header': ['   Commands']       },
-          \ ]
+        \ { 'type': 'files',     'header': ['   Recent']    },
+        \ { 'type': 'sessions',  'header': ['   Sessions']  },
+        \ { 'type': 'bookmarks', 'header': ['   Bookmarks'] },
+        \ { 'type': 'commands',  'header': ['   Commands']  },
+        \ ]
 
     " archivos importantes
     let g:startify_bookmarks = [
-        \{'v': '~/.config/nvim/init.vim'},
-        \{'vp': '~/.config/nvim/plug.vim'},
-        \{'i3': '~/.config/i3/config'},
-        \{'z': '~/.config/zsh/zshrc'},
-        \{'a': '~/.config/aliasrc'},
-        \{'t': '~/.config/tmux/tmux.conf'}
+        \{'v': '~/.config/nvim/init.vim'    },
+        \{'vp': '~/.config/nvim/plug.vim'   },
+        \{'i3': '~/.config/i3/config'       },
+        \{'z': '~/.config/zsh/zshrc'        },
+        \{'a': '~/.config/aliasrc'          },
+        \{'t': '~/.config/tmux/tmux.conf'   }
         \]
 
 
 " colorscheme
-
-    " let g:gruvbox8
-    " if []
-
-    " let g:gruvbox_bold = 1
-    " let g:gruvbox_underline = 1
-    " let g:gruvbox_undercurl = 1
-    " let g:gruvbox_termcolors = 256
-    " let g:gruvbox_improved_strings = 1
-    " let g:gruvbox_improved_warnings = 1
-    "
-    " " soft, medium, hard
-    " let g:gruvbox_contrast_dark = "soft"
-    "
-    " let g:gruvbox_italicize_comments=1
-    " set background=light
     set background=dark
     colorscheme gruvbox8_soft
-
 
 " coc
 
@@ -291,19 +273,22 @@ call plug#end()
     " coc-yank
         nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
 
+
+" vim-tmux-navigator
 " para unir esto a tmux
+
+let g:tmux_navigator_disable_when_zoomed = 1
+
+" esto guarda al moverse a otros paneles
+" 0 no, 1 buffer actual, todos los buffers
+let g:tmux_navigator_save_on_switch = 2
+
 " let g:tmux_navigator_no_mappings = 1
-
-    noremap <c-h> <esc>
-    noremap <c-j> <esc>
-    noremap <c-k> <esc>
-    noremap <c-l> <esc>
-
-    noremap <silent> <c-h> <esc>:TmuxNavigateLeft<cr>
-    noremap <silent> <c-j> <esc>:TmuxNavigateDown<cr>
-    noremap <silent> <c-k> <esc>:TmuxNavigateUp<cr>
-    noremap <silent> <c-l> <esc>:TmuxNavigateRight<cr>
-    noremap <silent> <c-/> <esc>:TmuxNavigatePrevious<cr>
+" source ~/.config/nvim/plugins/tmux-navigator.vim
+"     nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
+"     nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
+"     nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
+"     nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
 
 " Write all buffers before navigating from Vim to tmux pane
     let g:tmux_navigator_save_on_switch = 2
@@ -370,9 +355,9 @@ let g:vimspector_enable_mappings = 'HUMAN'
     autocmd User Startified setlocal buflisted
     noremap <Leader>< <esc> :FloatermToggle <cr>
 
-" Clap
-
-    noremap <Leader>ñ :Clap files <cr>
-    noremap <Leader>s :Clap blines <cr>
-    noremap <Leader>p :Clap <cr>
+" " Clap
+"
+"     noremap <Leader>ñ :Clap files <cr>
+"     noremap <Leader>s :Clap blines <cr>
+"     noremap <Leader>p :Clap <cr>
 

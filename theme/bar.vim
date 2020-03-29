@@ -23,6 +23,7 @@ let g:currentmode={
 
 highlight InactiveColor guibg=#3e4249 guifg=#b7bec9
 highlight GitColor guibg=#3e4249
+
 " Get current mode
 function! ModeCurrent() abort
     let l:modecurrent = mode()
@@ -49,7 +50,6 @@ function! ModeCurrent() abort
 
     return toupper(get(g:currentmode, l:modecurrent, 'V·Block '))
 endfunction
-
 
 function! ActiveStatus()
     let statusline  = ""
@@ -100,3 +100,6 @@ endfunction
 " endfunction
 
 set statusline=%!ActiveStatus()
+set noshowmode		" para no mostrar el estado de edicion en la ultima linea
+set laststatus=2    " mostrar la barra de status
+set cmdheight=1

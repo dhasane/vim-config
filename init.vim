@@ -16,15 +16,25 @@
 " N::::::N        N::::::NE::::::::::::::::::::E   OO:::::::::OO              V:::V           I::::::::IM::::::M               M::::::M
 " NNNNNNNN         NNNNNNNEEEEEEEEEEEEEEEEEEEEEE     OOOOOOOOO                 VVV            IIIIIIIIIIMMMMMMMM               MMMMMMMM
 
-" #########################
-" general
-" #########################
 
 " para poder poner comandos mas interesantes sin sobreescribir nada :v
 let mapleader = ","
 
+" agrega archivos que esten en la misma carpeta de configuracion de nvim
+fun Include(file)
+    exec 'source ~/.config/nvim/' . a:file
+endfun
+
 " plugins
-source ~/.config/nvim/plug.vim
+call Include("plug.vim")
+call Include("funciones.vim")
+call Include("theme/bar.vim")
+call Include("theme/tab.vim")
+
+" #########################
+" general
+" #########################
+
 packadd termdebug
 
 " if &t_Co > 255
@@ -70,11 +80,8 @@ let comentario = ""
 "   set pyx=2
 " endif
 
-" autocmd FileType c,cpp,vim,java,php,rust,python autocmd BufWritePre * :call StripEndlineComments()
+" quitar espacios al final de lineas
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
-
-
-" autocmd Filetype * &ft!="markdown" | BufWritePre * %s/\s\+$//e " quitar espacios ' ' sobrantes al final, excepto si es markdown
 
 "quitar autocontinuacion de comentarios al pasar a la siguiente linea
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -118,6 +125,8 @@ set encoding=utf-8
 " set list listchars=tab:-\ \,trail:¬∑ "set points after
 set list listchars=tab:»·,trail:·  " configuracion cool que encontre para mostrar espacios al inicio y al final de la linea
 
+set noswapfile
+
 set linebreak
 set breakindent
 set showbreak=\
@@ -153,6 +162,19 @@ let g:netrw_banner = 0
 let g:netrw_browse_split = 4
 let g:netrw_winsize = 25
 
+" tamaño minimo de una vista
+set winheight=25
+set winwidth=90
+
+" Better display for messages
+set number relativenumber
+set scrolloff=10 " keep some lines visible when scrolling
+set cursorline " cambia el color de la linea en la que se encuentra el cursor
+
+" always show signcolumns
+set signcolumn=yes
+
+
 " #######################
 " visual
 " ######################
@@ -179,19 +201,6 @@ if exists('$TMUX')
     let &t_EI = "\ePtmux;\e".&t_EI."\e\\"
 endif
 
-" Better display for messages
-set laststatus=2    " mostrar la barra de status
-set cmdheight=1
-set number relativenumber
-set noshowmode		" para no mostrar el estado de edicion en la ultima linea, ya que esta en lightline
-set scrolloff=10 " keep some lines visible when scrolling
-set cursorline " cambia el color de la linea en la que se encuentra el cursor
-
-" always show signcolumns
-set signcolumn=yes
-
-source ~/.config/nvim/theme/bar.vim
-source ~/.config/nvim/theme/tab.vim
 
 " #########################
 " mappings
@@ -237,8 +246,15 @@ source ~/.config/nvim/theme/tab.vim
     " ver arbol de archivos
 	noremap <Leader>t :Lexplore <cr>
 
-    " para esto estoy usando Clap
-    noremap <Leader>; :FZF <cr>
+    " para no tenerlo que estar cambiando al cambiar
+    " de computadores
+
+    " let tipo = call Keyboard_type() =~"us"
+	if Keyboard_type("us")
+        noremap <Leader>; :FZF <cr>
+    else
+        noremap <Leader>ñ :FZF <cr>
+    endif
 
 " porque quiero, puedo y no tengo miedo
 	nnoremap <Leader>c :call Compilar() <cr>
@@ -250,8 +266,6 @@ source ~/.config/nvim/theme/tab.vim
 	nnoremap <RightMouse> :Break<CR>
 
 " compilar con make y mostrar salida
-    " nnoremap <Leader>m :make <cr>
-    " nnoremap <Leader>m :Dispatch <cr>
     nnoremap <Leader><C-m> :copen <cr>
     " nnoremap <Leader>m :lopen 5 <cr>
     nnoremap <Leader>m :botright lwindow 5<cr>
@@ -332,94 +346,12 @@ source ~/.config/nvim/theme/tab.vim
 
 	map gf :edit <cfile><cr>
 
+
 " #######################
 " funciones
 " #######################
 
-" cargar templates previamente establecidos, en caso de no existir, no hace
-" nada
-function! LoadTemplate(extension)
-	silent! execute '0r ~/.config/nvim/templates/templates/T*-'.a:extension.'-*.tpl'
-	silent! execute 'source ~/.config/nvim/templates/patterns/P*-'.a:extension.'-*.tpl'
-endfunction
-
-" esta de mas, pero asi logre que funcionara...
-" busca '!cursor!' y va a esa ubicacion -- funciona en conjunto a las
-" abreviaciones
-function! IrACursor()
-	:call search('!cursor!','b')
-endfunction
-
-function! DebugA()
-	let nom = expand('%:p')
-	let comp = expand('%:p:r')
-	let ext = expand('%:e')
-
-    call Compilar()
-
-	if ( ext == "c" || ext == "cxx" || ext =="cpp" )
-	    let termdebugger = "gdb"
-		execute ':Termdebug '.comp
-	elseif ( ext == "py" )
-	    let termdebugger = "pytohn -m pdb"
-		execute ':Termdebug '.nom
-	elseif ( ext == "rs" )
-        echo "io no c sto como funciona :v"
-		" execute ':! rustc '.nom
-		" execute ':! cargo run '
-	else
-		echom 'lenguaje no integrado'
-	endif
-
-endfunction
-
-function Compilar()
-	let nom = expand('%:p')
-	let comp = expand('%:p:r')
-	let ext = expand('%:e')
-
-    " para guardar el archivo antes de compilarlo, ya que usualmente me olvido :v
-    execute ':w'
-
-    let runc = ""
-	if ( ext == "c" )
-		let runc = 'gcc '.nom.' -o '.comp
-	elseif ( ext == "cxx" || ext =="cpp" )
-		let runc = 'g++ '.nom.' -ggdb -o '.comp
-	elseif ( ext == "py" )
-		let runc = 'python '.nom
-	elseif ( ext == "md" )
-        let runc = 'pandoc -s -o '.comp.'.pdf '.nom.' ; xdg-open '.comp.'.pdf'
-	elseif ( ext == "rs" )
-		" run = ':! rustc '.nom
-		let runc = 'cargo run '
-	else
-		echom 'lenguaje no integrado'
-	endif
-
-    if ( runc != "" )
-        " echo runc
-        execute ':silent ! ( '.runc.' )&> /dev/null & '
-        " echo 'compilado'
-    endif
-
-endfunction
-
-" esto esta en desarrollo
-function! Cerrar()
-    execute ':w'
-    let size = buffer_number()
-    if size > 1
-        let buffclose = bufname()
-        " echon buffclose
-        execute 'bNext'
-        execute 'bd '.buffclose
-    else
-        " echon "saliendo"
-        execute ':q'
-    endif
-endfunction
-
+" no estoy seguro, pero que tener esto aca
 fun! <SID>StripTrailingWhitespaces()
 	let ext = expand('%:e')
 
@@ -430,4 +362,3 @@ fun! <SID>StripTrailingWhitespaces()
         call cursor(l, c)
     endif
 endfun
-
