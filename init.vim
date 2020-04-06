@@ -125,7 +125,7 @@ set encoding=utf-8
 " set list listchars=tab:-\ \,trail:¬∑ "set points after
 set list listchars=tab:»·,trail:·  " configuracion cool que encontre para mostrar espacios al inicio y al final de la linea
 
-set noswapfile
+" set noswapfile
 
 set linebreak
 set breakindent

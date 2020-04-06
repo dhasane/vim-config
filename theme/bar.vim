@@ -21,8 +21,6 @@ let g:currentmode={
     \'t' : 'Terminal '
     \}
 
-highlight InactiveColor guibg=#3e4249 guifg=#b7bec9
-highlight GitColor guibg=#3e4249
 
 " Get current mode
 function! ModeCurrent() abort
@@ -51,7 +49,12 @@ function! ModeCurrent() abort
     return toupper(get(g:currentmode, l:modecurrent, 'V·Block '))
 endfunction
 
+" highlight InactiveColor guibg=#3e4249 guifg=#b7bec9
+" highlight GitColor guibg=#3e4249
+
 function! ActiveStatus()
+    hi InactiveColor guibg=#3e4249 guifg=#b7bec9
+    hi GitColor guibg=#3e4249
     let statusline  = ""
     let statusline .= "%#Mode# %{'\     \ '.ModeCurrent().'\' }"
     let statusline .= "%#GitColor#%(\     %{GitBranch()}\ %)"
