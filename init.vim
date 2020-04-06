@@ -16,6 +16,9 @@
 " N::::::N        N::::::NE::::::::::::::::::::E   OO:::::::::OO              V:::V           I::::::::IM::::::M               M::::::M
 " NNNNNNNN         NNNNNNNEEEEEEEEEEEEEEEEEEEEEE     OOOOOOOOO                 VVV            IIIIIIIIIIMMMMMMMM               MMMMMMMM
 
+" #########################
+" general
+" #########################
 
 " para poder poner comandos mas interesantes sin sobreescribir nada :v
 let mapleader = ","
@@ -35,18 +38,9 @@ call Include("theme/tab.vim")
 " general
 " #########################
 
-packadd termdebug
+" packadd termdebug
 
-" if &t_Co > 255
-"     " color definitions
-" endif
-" if &t_Co == 8
-"     " color definitions
-" endif
-
-if (has("termguicolors"))
-  set termguicolors
-endif
+set t_Co=256
 
 autocmd BufNewFile * silent! call LoadTemplate('%:e') " cargar templates
 
@@ -63,25 +57,20 @@ if &compatible
 endif
 
 set path+=.**
-
 set spellsuggest=10 " muestra las primeras 10 palabras recomendadas
 
 " Where to look for tags files
 set tags=~/.config/nvim/tags
 "command! MakeTags !ctags -R .
 
-let comentario = ""
-
-" let g:python_host_prog = "/usr/bin/python2"
-" let g:python3_host_prog = "/usr/bin/python3"
-" if has('python3') " primera opcion
-"   set pyx=3
-" elseif has('python2') " segunda opcion
-"   set pyx=2
-" endif
-
 " quitar espacios al final de lineas
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+
+if has('python3') " primera opcion
+  set pyx=3
+elseif has('python2') " segunda opcion
+  set pyx=2
+endif
 
 "quitar autocontinuacion de comentarios al pasar a la siguiente linea
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -108,7 +97,6 @@ endif
 filetype plugin on
 syntax on
 syntax enable
-set encoding=utf-8
 
 " scriptencoding utf-8
 " set enc=utf-8
@@ -121,6 +109,13 @@ set encoding=utf-8
 " set foldcolumn=2
 " set nofoldenable
 " set foldlevel=1
+" highlight Pmenu guibg=#e77171 gui=bold
+
+set encoding=utf-8
+
+set path+=.**
+set wildmenu
+set wildmode=list:longest,list:full
 
 " set list listchars=tab:-\ \,trail:¬∑ "set points after
 set list listchars=tab:»·,trail:·  " configuracion cool que encontre para mostrar espacios al inicio y al final de la linea
@@ -174,10 +169,41 @@ set cursorline " cambia el color de la linea en la que se encuentra el cursor
 " always show signcolumns
 set signcolumn=yes
 
+" set completeopt+=preview
+set completeopt+=longest,menuone,preview
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <Down> <C-R>=pumvisible() ? "\<lt>C-N>" : "\<lt>Down>"<CR>
+inoremap <UP> <C-R>=pumvisible() ? "\<lt>C-P>" : "\<lt>Up>"<CR>
+
+set omnifunc=syntaxcomplete#Complete
+" set complete
+set completeopt=menu,longest,menuone,preview
+
+let g:netrw_liststyle = 3
+let g:netrw_banner = 0
+let g:netrw_browse_split = 4
+let g:netrw_winsize = 25
 
 " #######################
 " visual
 " ######################
+
+if (has("termguicolors"))
+  set termguicolors
+endif
+
+" Correct RGB escape codes for vim inside tmux
+if !has('nvim') && $TERM ==# 'screen-256color'
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
+" colorscheme
+    " colorscheme desert
+    colorscheme gruvbox8_soft
+    set background=dark
+
+" colorscheme evening
 
 " cursor
 
@@ -201,7 +227,6 @@ if exists('$TMUX')
     let &t_EI = "\ePtmux;\e".&t_EI."\e\\"
 endif
 
-
 " #########################
 " mappings
 " #########################
@@ -224,23 +249,16 @@ endif
 	map <leader>oi :setlocal spell! spelllang=en_us<CR>
 	map <leader>ot :setlocal spell! spelllang=es,en_us<CR>
 
-" correr la macro en q
+" correr la macro en q, que aveces sin querer la sobreescribo
     nnoremap <Leader><Space> @q
-
-" continuar desde el ultimo lugar trabajado
-	" execute 'nmap ñ a'.comentario.'<+Continuar+> <esc>'
-
-" saltar entre palabras clave <+palabra+>
-	" nnoremap <Leader>l /<+.\{-1,}+><cr>c/+>/e<cr>
-	" inoremap <Leader>l <ESC>/<+.\{-1,}+><cr>c/+>/e<cr>
 
 " mostrar las marcas
     nnoremap '? :marks <cr>
 
-    " para solo mostrar las marcas dentro del archivo
+" para solo mostrar las marcas dentro del archivo
 	nnoremap <Leader>' :marks abcdefghijklmnopqrstuvwxyz<cr>:'
 
-    " terminal
+" abrir terminal
     noremap <Leader>. <esc> :vsp <cr> :term <cr>
 
     " ver arbol de archivos
@@ -252,6 +270,8 @@ endif
     " let tipo = call Keyboard_type() =~"us"
 	if Keyboard_type("us")
         noremap <Leader>; :FZF <cr>
+" el mejor fuzzy finder que he encontrado en nativo
+		" noremap <Leader>ñ :e **/*
     else
         noremap <Leader>ñ :FZF <cr>
     endif
@@ -268,6 +288,8 @@ endif
 " compilar con make y mostrar salida
     nnoremap <Leader><C-m> :copen <cr>
     " nnoremap <Leader>m :lopen 5 <cr>
+
+" muestra errores
     nnoremap <Leader>m :botright lwindow 5<cr>
 
 "mover entre buffers
@@ -289,13 +311,10 @@ endif
     noremap <Leader>ws <esc>:sp<cr>
     noremap <Leader>wt <esc>:tabnew %<cr>
 
-" cerrar sesion
-    noremap <Leader>q <esc> :SClose<cr>
-
 " final funciones con <Leader> -----------------------------------
 
     nnoremap gb gT
-	" quitar modo Ex - que ademas ni idea para que sirve :v
+" quitar modo Ex - que ademas ni idea para que sirve :v
 	nnoremap Q <nop>
 
 	inoremap <C-a> <esc>
@@ -304,7 +323,6 @@ endif
 	 noremap <C-s> :w<cr>
 	inoremap <C-s> <esc><esc>:w<cr>
 	vnoremap <C-s> <esc><esc>:w<cr>
-
 " deshacer
 	inoremap <C-z> <esc> ui
 	 noremap <C-z> u
@@ -312,10 +330,6 @@ endif
      noremap <C-q> <esc>:q<cr>
     inoremap <C-q> <esc><esc>:wq<cr>
 
-	"  noremap <C-q> <esc>:call Cerrar()<cr>
-	" inoremap <C-q> <esc><esc>:call Cerrar()<cr>
-
-    "make < > shifts keep selection
     vnoremap <tab> >gv
     vnoremap <S-tab> <gv
 
@@ -327,7 +341,7 @@ endif
 	vnoremap <C-c> "*y :let @+=@* <cr>
 	nnoremap <C-c> "*yy:let @+=@*<cr>
 	inoremap <C-c> <esc>"*yy:let @+=@*<cr>a
-	nnoremap <C-p> "+P
+	"nnoremap <C-p> "+P
 " pegar en insert
 	inoremap <C-p> <esc>"+pa
     inoremap <C-v> <esc>"+pa
@@ -353,7 +367,7 @@ endif
 
 " no estoy seguro, pero que tener esto aca
 fun! <SID>StripTrailingWhitespaces()
-	let ext = expand('%:e')
+    let ext = expand('%:e')
 
     if( ext != "md" && ext != "csv" ) " no limpiar lineas en markdown
         let l = line(".")

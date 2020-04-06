@@ -117,11 +117,6 @@ call plug#end()
         \{'t': '~/.config/tmux/tmux.conf'   }
         \]
 
-
-" colorscheme
-    set background=dark
-    colorscheme gruvbox8_soft
-
 " coc
 
     let g:coc_global_extensions = [

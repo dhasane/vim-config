@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/home/daniel/.config/nvim'
+let g:netrw_dirhist_6='/home/daniel/game_dev/pong/pong-final'
+let g:netrw_dirhist_5='/home/daniel/dev/distribuidos/Corona/config'
+let g:netrw_dirhist_4='/home/daniel/dev/distribuidos/Corona/src/main'
+let g:netrw_dirhist_3='/home/daniel/dev/distribuidos/Corona/src'
+let g:netrw_dirhist_2='/home/daniel/dev/distribuidos/Corona/src/main/java/virus'
+let g:netrw_dirhist_1='/home/daniel/dev/distribuidos/Corona/src/main'
+let g:netrw_dirhist_0='/home/daniel/dev/distribuidos/Corona/src'
+let g:netrw_dirhist_9='/home/daniel/dev/distribuidos/Corona/src/main/java/virus'
+let g:netrw_dirhist_8='/home/daniel/.config/nvim'
