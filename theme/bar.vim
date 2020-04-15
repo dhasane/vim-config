@@ -63,6 +63,7 @@ function! ActiveStatus()
     let statusline .= " %m"
     let statusline .= "%="
     let statusline .= "%#InactiveColor#"
+    " let statusline .= "%#StatusLine#"
     let statusline .= " %Y"
     let statusline .= " |"
     let statusline .= " LN: %L"
@@ -72,6 +73,7 @@ endfunction
 function! InactiveStatus()
     let statusline  =""
     let statusline .="%#InactiveColor#"
+    " let statusline .="%#StatusLine#"
     " let statusline.=" %F"
     let statusline .= " %{Filename()}"
     let statusline .=" %m"
@@ -103,6 +105,6 @@ endfunction
 " endfunction
 
 set statusline=%!ActiveStatus()
-set noshowmode		" para no mostrar el estado de edicion en la ultima linea
+set noshowmode      " para no mostrar el estado de edicion en la ultima linea
 set laststatus=2    " mostrar la barra de status
 set cmdheight=1
