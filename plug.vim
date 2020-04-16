@@ -117,6 +117,12 @@ call plug#end()
         \{'t': '~/.config/tmux/tmux.conf'   }
         \]
 
+
+
+" fzf
+
+    let g:fzf_layout = { 'window': 'call CreateCenteredFloatingWindow()' }
+
 " coc
 
     let g:coc_global_extensions = [

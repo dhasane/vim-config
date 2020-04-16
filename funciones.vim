@@ -175,6 +175,68 @@ function! TermToggle(height)
     endif
 endfunction
 
+function! FloatTermToggle()
+    if win_gotoid(s:term_win)
+        hide
+        bwipeout!
+    else
+        call CreateCenteredFloatingWindow()
+        try
+            exec "buffer " . s:term_buf
+            exec "bd terminal"
+        catch
+            call termopen($SHELL, {"detach": 0, 'on_exit': function('OnTermExit') })
+            let s:term_buf = bufnr("")
+        endtry
+        let s:term_win = win_getid()
+    endif
+endfunction
+
+function! ToggleTerm(cmd)
+    if empty(bufname(a:cmd))
+        call CreateCenteredFloatingWindow()
+        call termopen(a:cmd, { 'on_exit': function('OnTermExit') })
+    else
+        bwipeout!
+    endif
+endfunction
+
+function! CreateCenteredFloatingWindow()
+    let width  = float2nr(&columns * 0.9)
+    let height = float2nr(&lines * 0.8)
+    let top    = ((&lines - height) / 2) - 1
+    let left   = (&columns - width) / 2
+    let opts   = { 'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal' }
+    let top    = "╭" . repeat("─", width - 2) . "╮"
+    let mid    = "│" . repeat(" ", width - 2) . "│"
+    let bot    = "╰" . repeat("─", width - 2) . "╯"
+    let lines  = [top] + repeat([mid], height - 2) + [bot]
+    let s:buf  = nvim_create_buf(v:false, v:true)
+
+    call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
+    call nvim_open_win(s:buf, v:true, opts)
+
+    call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, CreatePadding(opts))
+
+    " cerrar el buffer al cerrar lo que se este haciendo dentro de este
+    autocmd BufWipeout <buffer> exe 'bwipeout '.s:buf
+
+endfunction
+
+function! OnTermExit(job_id, code, event) dict
+    if a:code == 0
+        bwipeout!
+    endif
+endfunction
+
+function! CreatePadding(opts)
+    let a:opts.row    += 1
+    let a:opts.height -= 2
+    let a:opts.col    += 2
+    let a:opts.width  -= 4
+    return a:opts
+endfunction
+
 " funcionalidades de busqueda con FZF
 
 function! s:line_handler(l)
