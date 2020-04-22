@@ -88,8 +88,6 @@ function Compilar()
     let comp = expand('%:p:r')
     let ext = expand('%:e')
 
-    " para guardar el archivo antes de compilarlo, ya que usualmente me olvido :v
-
     let l:runc = ""
     if ( ext == "c" )
         let l:runc = 'gcc '.nom.' -o '.comp

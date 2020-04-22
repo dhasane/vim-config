@@ -183,7 +183,7 @@ augroup END
 augroup Save
     au!
     " quitar espacios al final de lineas
-    au BufWritePre * :call StripTrailingWhitespaces()
+    au BufWritePre * call StripTrailingWhitespaces()
     " compila los archivos que se puedan compilar al guardar
     au BufWrite * call Compilar()
 augroup END
@@ -195,8 +195,9 @@ augroup TerminalBehavior
     autocmd!
     autocmd TermOpen * setlocal listchars= nonumber norelativenumber nowrap winfixwidth signcolumn=no noshowmode nocursorline
     autocmd TermOpen * startinsert
-    autocmd TermClose * set laststatus=2 showmode ruler
+    autocmd TermClose * set laststatus=2 "ruler
 
+    autocmd BufEnter term://* startinsert! " que entre directamente a la terminal
     " esto se siente macheteado, pero esta sirviendo
     autocmd BufEnter * setlocal winhighlight=Normal:opaque,NormalNC:opaque
     autocmd TermEnter * silent! call Fondo(1)

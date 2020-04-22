@@ -132,7 +132,8 @@ call plug#end()
                 \ 'coc-rust-analyzer',
                 \ 'coc-python',
                 \ 'coc-json',
-                \ 'coc-java'
+                \ 'coc-java',
+                \ 'coc-solargraph'
                 \]
 
                 " \ 'coc-pretier',
