@@ -183,7 +183,7 @@ augroup END
 augroup Save
     au!
     " quitar espacios al final de lineas
-    au BufWritePre * call StripTrailingWhitespaces()
+    au BufWritePre * silent! call StripTrailingWhitespaces()
     " compila los archivos que se puedan compilar al guardar
     au BufWrite * call Compilar()
 augroup END
@@ -200,8 +200,8 @@ augroup TerminalBehavior
     autocmd BufEnter term://* startinsert! " que entre directamente a la terminal
     " esto se siente macheteado, pero esta sirviendo
     autocmd BufEnter * setlocal winhighlight=Normal:opaque,NormalNC:opaque
-    autocmd TermEnter * silent! call Fondo(1)
-    autocmd TermLeave * silent! call Fondo(0)
+    " autocmd TermEnter * silent! call Fondo(1)
+    " autocmd TermLeave * silent! call Fondo(0)
     " au TermOpen * :set winhighlight=Normal:None
 augroup END
 
@@ -221,7 +221,7 @@ endif
 
 " colorscheme
     " colorscheme desert
-    colorscheme gruvbox8_soft
+    colorscheme gruvbox8
     set background=dark
 
 " colorscheme evening
@@ -272,7 +272,7 @@ endif
     tnoremap <C-l> <C-\><C-n><C-w>l
 
     " dejemos esto por el momento como prueba
-    inoremap <Leader><Leader> <esc>
+    " inoremap <Leader><Leader> <esc>
 
 " verificacion de escritura
     map <leader>oe :setlocal spell! spelllang=es<CR>
@@ -341,7 +341,7 @@ endif
     noremap <Leader>b <esc>va}zf
 
 " cortes
-    " esto oficialmente sirve para ir a la ventana superior izquierda, pero no se si lo use mucho
+    " <tab>t oficialmente sirve para ir a la ventana superior izquierda, pero no se si lo use mucho
     " me gusta mas la funcion que yo le tengo :D
     noremap <tab>t <esc>:tabnew %<cr>
     nnoremap <tab> <C-w>
@@ -355,7 +355,6 @@ endif
 " quitar modo Ex - que ademas ni idea para que sirve :v
     nnoremap Q <nop>
 
-    inoremap <C-a> <esc>
 " funciones generales de otros editores
 " guardar
      noremap <C-s> :w<cr>
@@ -382,6 +381,9 @@ endif
 " pegar en insert
     inoremap <C-p> <esc>"+pa
     inoremap <C-v> <esc>"+pa
+
+" copiar hasta el final de linea
+    nnoremap Y y$
 
 
 " mover entre splits
