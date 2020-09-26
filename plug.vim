@@ -1,10 +1,12 @@
 
 
-"if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
-"   echo "Downloading junegunn/vim-plug to manage plugins..."
-"   silent !mkdir -p ~/.config/nvim/autoload/
-"   silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ~/.config/nvim/autoload/plug.vim
-"endif
+
+if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
+    echo "Downloading junegunn/vim-plug to manage plugins..."
+    silent !mkdir -p ~/.config/nvim/autoload/
+    silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ~/.config/nvim/autoload/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 " instalar manejador de plugins en caso de no estar presente
 "if empty(glob('~/.vim/autoload/plug.vim'))

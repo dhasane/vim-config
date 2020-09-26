@@ -183,9 +183,9 @@ augroup END
 augroup Save
     au!
     " quitar espacios al final de lineas
-    au BufWritePre * silent! call StripTrailingWhitespaces()
+    " au BufWritePre * silent! call StripTrailingWhitespaces()
     " compila los archivos que se puedan compilar al guardar
-    au BufWrite * call Compilar()
+    " au BufWrite * call Compilar()
 augroup END
 
 " au ColorScheme * hi Normal ctermbg=none guibg=none
