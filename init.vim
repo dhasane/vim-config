@@ -21,7 +21,7 @@
 " #########################
 
 " para poder poner comandos mas interesantes sin sobreescribir nada :v
-let mapleader = ","
+let mapleader = " "
 
 " agrega archivos que esten en la misma carpeta de configuracion de nvim
 fun! Include(file)
@@ -62,12 +62,6 @@ set spellsuggest=10 " muestra las primeras 10 palabras recomendadas
 " Where to look for tags files
 set tags=~/.config/nvim/tags
 "command! MakeTags !ctags -R .
-
-if has('python3') " primera opcion
-  set pyx=3
-elseif has('python2') " segunda opcion
-  set pyx=2
-endif
 
 " esto arregla el problema de C-direccion para tmux
 if exists('$TMUX')
@@ -159,11 +153,6 @@ set signcolumn=yes
 " set completeopt+=preview
 set completeopt+=menu,longest,menuone,preview
 set omnifunc=syntaxcomplete#Complete
-
-let g:netrw_liststyle = 3
-let g:netrw_banner = 0
-let g:netrw_browse_split = 4
-let g:netrw_winsize = 25
 
 " #######################
 " autocmd
