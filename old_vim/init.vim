@@ -284,6 +284,8 @@ endif
     " ver arbol de archivos
     noremap <Leader>t :Lexplore <cr>
 
+    nnoremap <Leader>w <C-w>
+
 " porque quiero, puedo y no tengo miedo
     nnoremap <Leader>c :call Compilar() <cr>
 
@@ -363,9 +365,9 @@ endif
     " nnoremap <S-tab> <<
 
 " copiar y pegar
-    vnoremap <C-c> "*y :let @+=@* <cr>
-    nnoremap <C-c> "*yy:let @+=@*<cr>
-    inoremap <C-c> <esc>"*yy:let @+=@*<cr>a
+    " vnoremap <C-c> "*y :let @+=@* <cr>
+    " nnoremap <C-c> "*yy:let @+=@*<cr>
+    " inoremap <C-c> <esc>"*yy:let @+=@*<cr>a
     "nnoremap <C-p> "+P
 " pegar en insert
     inoremap <C-p> <esc>"+pa
