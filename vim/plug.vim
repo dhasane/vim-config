@@ -1,5 +1,6 @@
 
 
+set clipboard=unnamed
 
 if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
     echo "Downloading junegunn/vim-plug to manage plugins..."
@@ -32,7 +33,7 @@ call plug#begin('~/.vim/plugged')
  Plug 'christoomey/vim-tmux-navigator'              " simplificar movimiento entre vim y tmux
  Plug 'scrooloose/nerdcommenter'                    " bonito comentador
 
- Plug 'puremourning/vimspector'                     " debbuger
+ " Plug 'puremourning/vimspector'                     " debbuger
 
  " Plug 'liuchengxu/vim-clap', { 'do': function('clap#helper#build_all') }
  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
