@@ -11,7 +11,21 @@ return require('packer').startup(function(use)
   -- use 'foo2/bar2.nvim'
   --
   use 'wbthomason/packer.nvim' -- Package manager
+
+    -- LSP
   use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
+  use 'onsails/lspkind-nvim'
+
+    -- Autocomplete
+  use 'hrsh7th/nvim-compe'
+  use 'SirVer/ultisnips'
+
+    -- Treesitter
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use 'p00f/nvim-ts-rainbow'
+  use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
+  use 'JoosepAlviste/nvim-ts-context-commentstring'
+  use 'romgrk/nvim-treesitter-context'
 
   use {
 	  'nvim-telescope/telescope.nvim', 
@@ -19,6 +33,7 @@ return require('packer').startup(function(use)
 	  requires = { {'nvim-lua/plenary.nvim'} }
 	  -- or                            , branch = '0.1.x',
   }
+  use { "nvim-telescope/telescope-file-browser.nvim" }
 
   use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 
@@ -31,3 +46,4 @@ return require('packer').startup(function(use)
     require('packer').sync()
   end
 end)
+

@@ -19,13 +19,14 @@ function vim_include(file)
     vim.cmd('source ~/.config/nvim/vim/' .. file)
 end
 
--- vim_include("plug.vim")
 -- vim_include("funciones.vim")
 -- vim_include("theme/bar.vim")
 -- vim_include("theme/tab.vim")
 -- vim_include("visual.vim")
 -- vim_include("autocmd.vim")
--- vim_include("keybinds.vim")
 
 require("opts")
+require("keymaps")
+require("visual")
+
 require("plugins")
