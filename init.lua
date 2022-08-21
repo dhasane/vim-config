@@ -27,6 +27,11 @@ end
 
 require("opts")
 require("keymaps")
+
+-- require("plugins")
+require("plugins.conf")
+require("plugins.telescope-conf")
+require("plugins.org-mode")
+
 require("visual")
 
-require("plugins")

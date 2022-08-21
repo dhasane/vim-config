@@ -1,3 +1,2 @@
-
-require('packer')
+require('conf')
 require('telescope')
