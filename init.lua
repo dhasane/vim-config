@@ -32,6 +32,7 @@ require("keymaps")
 require("plugins.conf")
 require("plugins.telescope-conf")
 require("plugins.org-mode")
+require("plugins.neogit-conf")
 
 require("visual")
 
