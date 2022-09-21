@@ -16,10 +16,56 @@ function ReloadConfig()
   vim.notify("Nvim configuration reloaded!", vim.log.levels.INFO)
 end
 
+function maps(base, mode, keymaps)
+    local map = vim.keymap.set
 
-map("n", '<leader>re', ' :execute "edit " . $MYVIMRC<CR>')
--- map("n", '<leader>rs', ' :execute "source " . $MYVIMRC<CR>')
-map("n", '<leader>rs', ' :lua ReloadConfig<CR>')
+    for i, keymap in ipairs(keymaps) do
+        keybind = keymap[1]
+        if type(keybind) == "table" then
+            maps(base, mode, keymap)
+        else
+            command = keymap[2]
+            opts = keymap[3]
+
+            if keybind == nil then
+                print("keybind is nil")
+            elseif command == nil then
+                print("command is nil")
+            else
+                map(mode, base .. keybind, command .. '<CR>', opts)
+            end
+        end
+    end
+end
+
+function imaps(base, keymaps)
+    keybinds = {}
+    for i, keymap in ipairs(keymaps) do
+        keybind = keymap[1]
+        command = keymap[2]
+        opts = keymap[3]
+        table.insert( keybinds, { base .. keybind, command, opts } )
+    end
+    return keybinds
+end
+
+-- maps("<leader>t" , "n", {
+--     {'p', ":tabnew"},
+--     imaps("j", {
+--         {"p", ":tabclose"}
+--     })
+-- })
+
+maps("<leader><TAB>", 'n', {
+    {'c', ':tabnew'},
+    {'q', ':tabclose'},
+})
+
+maps('<leader>\'', 'n', {
+    {'e', ':execute "edit " . $MYVIMRC'},
+    -- {'s', ' :execute "source " . $MYVIMRC<CR>'},
+    {'s', ':lua ReloadConfig'},
+})
 
 map("n", '<Esc>', '<Esc>:nohlsearch<CR>')
 
@@ -154,8 +200,3 @@ map('n', 'gf', ':edit <cfile><cr>')
 --            
 --            -- copiar hasta el final de linea
 --                nnoremap Y y$
---            
---            
---
-
-

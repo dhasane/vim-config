@@ -16,6 +16,11 @@ return require('packer').startup(function(use)
     }
     use 'onsails/lspkind-nvim'
 
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    }
+
     -- Autocomplete
     use 'hrsh7th/nvim-compe'
     -- use {

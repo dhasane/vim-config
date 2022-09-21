@@ -1,6 +1,8 @@
 local neogit = require("neogit")
 
 neogit.setup {
+  use_magit_keybindings = false,
+
   disable_signs = true,
   disable_hint = false,
   disable_context_highlighting = false,
@@ -9,7 +11,6 @@ neogit.setup {
   -- Disabling `auto_refresh` will make it so you have to manually refresh the status after you open it.
   auto_refresh = true,
   disable_builtin_notifications = false,
-  use_magit_keybindings = true,
   -- Change the default way of opening neogit
   kind = "tab",
   -- Change the default way of opening the commit popup

@@ -28,11 +28,11 @@ end
 require("opts")
 require("keymaps")
 
--- require("plugins")
 require("plugins")
 require("plugins.telescope-conf")
 require("plugins.org-mode")
 require("plugins.neogit-conf")
+require("plugins.lualine-conf")
 
 require("visual")
 

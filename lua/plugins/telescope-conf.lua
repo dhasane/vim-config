@@ -29,7 +29,7 @@ require('telescope').setup{
     -- please take a look at the readme of the extension you want to configure
     
     file_browser = {
-      -- theme = "ivy",
+      theme = "ivy",
       -- disables netrw and use telescope-file-browser in its place
       hijack_netrw = true,
       -- mappings = {
@@ -54,11 +54,10 @@ require('telescope').setup{
 require("telescope").load_extension "file_browser"
 require("telescope").load_extension "project"
 
-local map = vim.keymap.set
-map("n", "<leader>b", ":Telescope buffers")
-map("n", "<leader>e", ":Telescope file_browser path=%:p:h<CR>")
-             
-map('n', '<leader>p', ":lua require'telescope'.extensions.project.project{}<CR>", {noremap = true, silent = true})
-
-
-map("n", "<leader><leader>", "<Cmd>lua require('telescope').extensions.frecency.frecency()<CR>", {noremap = true, silent = true})
+maps("<leader>", "n", {
+    {"b", ":Telescope buffers"},
+    {"e", ":Telescope file_browser path=%:p:h"},
+    {"E", ":Telescope find_files"},
+    {"p", ":lua require'telescope'.extensions.project.project{}", {noremap = true, silent = true}},
+    {"<leader>", "<Cmd>lua require('telescope').extensions.frecency.frecency()", {noremap = true, silent = true}},
+})
