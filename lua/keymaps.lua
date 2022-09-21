@@ -5,8 +5,21 @@ local os = jit.os
 
 g.mapleader = ' ' -- map leader to space
 
+function ReloadConfig()
+  -- for name,_ in pairs(package.loaded) do
+  --   if name:match('^user') and not name:match('nvim-tree') then
+  --     package.loaded[name] = nil
+  --   end
+  -- end
+
+  dofile(vim.env.MYVIMRC)
+  vim.notify("Nvim configuration reloaded!", vim.log.levels.INFO)
+end
+
+
 map("n", '<leader>re', ' :execute "edit " . $MYVIMRC<CR>')
-map("n", '<leader>rs', ' :execute "source " . $MYVIMRC<CR>')
+-- map("n", '<leader>rs', ' :execute "source " . $MYVIMRC<CR>')
+map("n", '<leader>rs', ' :lua ReloadConfig<CR>')
 
 map("n", '<Esc>', '<Esc>:nohlsearch<CR>')
 

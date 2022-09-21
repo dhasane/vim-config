@@ -29,7 +29,7 @@ require("opts")
 require("keymaps")
 
 -- require("plugins")
-require("plugins.conf")
+require("plugins")
 require("plugins.telescope-conf")
 require("plugins.org-mode")
 require("plugins.neogit-conf")
