@@ -11,30 +11,22 @@ return require('packer').startup(function(use)
     use "kkharji/sqlite.lua"
 
     -- LSP
-    use {
-        "neovim/nvim-lspconfig",
-    }
+    use "neovim/nvim-lspconfig"
     use 'onsails/lspkind-nvim'
 
-    use {
-        'nvim-lualine/lualine.nvim',
-        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-    }
-
     -- Autocomplete
-    use 'hrsh7th/nvim-compe'
-    -- use {
-    --     "hrsh7th/nvim-cmp",
-    --     config = [[require('config.cmp')]], -- may vary based on config
-    --     requires = {
-    --         "hrsh7th/cmp-buffer",
-    --         "hrsh7th/cmp-nvim-lsp",
-    --         "hrsh7th/cmp-path",
-    --         "hrsh7th/cmp-nvim-lua",
-    --         "L3MON4D3/LuaSnip", -- may vary based on config
-    --         "onsails/lspkind-nvim",
-    --     }
-    -- }
+    use {
+        "hrsh7th/nvim-cmp",
+        -- config = [[require('config.cmp')]], -- may vary based on config
+        requires = {
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-path",
+            "hrsh7th/cmp-nvim-lua",
+            "L3MON4D3/LuaSnip", -- may vary based on config
+            "onsails/lspkind-nvim",
+        }
+    }
     -- use 'SirVer/ultisnips'
 
     -- Treesitter
@@ -88,6 +80,49 @@ return require('packer').startup(function(use)
         'nvim-orgmode/orgmode',
         config = function()
             require('plugins/org-mode')
+        end
+    }
+
+    -- visual
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    }
+
+    use {
+        'kyazdani42/nvim-tree.lua',
+        requires = {
+            'kyazdani42/nvim-web-devicons', -- optional, for file icons
+        },
+        tag = 'nightly', -- optional, updated every week. (see issue #1193)
+        config = function()
+            -- disable netrw at the very start of your init.lua (strongly advised)
+            vim.g.loaded = 1
+            vim.g.loaded_netrwPlugin = 1
+
+            -- empty setup using defaults
+            require("nvim-tree").setup()
+
+            -- OR setup with some options
+            require("nvim-tree").setup({
+                sort_by = "case_sensitive",
+                view = {
+                    adaptive_size = true,
+                    mappings = {
+                        list = {
+                            { key = "u", action = "dir_up" },
+                        },
+                    },
+                },
+                renderer = {
+                    group_empty = true,
+                },
+                filters = {
+                    dotfiles = true,
+                },
+            })
+
+            -- maps( "<leader>", "n", { "t", ":NvimTreeToggle" } )
         end
     }
 

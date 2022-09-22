@@ -28,9 +28,9 @@ function maps(base, mode, keymaps)
             opts = keymap[3]
 
             if keybind == nil then
-                print("keybind is nil")
+                print("keybind is nil: ", table.concat(keymaps) )
             elseif command == nil then
-                print("command is nil")
+                print("command is nil: ", table.concat(keymaps) )
             else
                 map(mode, base .. keybind, command .. '<CR>', opts)
             end
