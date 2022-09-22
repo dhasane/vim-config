@@ -11,8 +11,10 @@ return require('packer').startup(function(use)
     use "kkharji/sqlite.lua"
 
     -- LSP
+    use "onsails/lspkind-nvim"
+    use "williamboman/mason.nvim"
+    use "williamboman/mason-lspconfig.nvim"
     use "neovim/nvim-lspconfig"
-    use 'onsails/lspkind-nvim'
 
     -- Autocomplete
     use {
@@ -128,6 +130,19 @@ return require('packer').startup(function(use)
 
     -- elimina el trailing whitespace solo de las lineas que uno haya modificado
     use { "axelf4/vim-strip-trailing-whitespace" }
+    use 'windwp/nvim-autopairs'
+    use 'andymass/vim-matchup'
+
+    -- Move & Search & replace
+    use 'chaoren/vim-wordmotion'
+    use 'kshenoy/vim-signature'
+    use 'dyng/ctrlsf.vim'
+    use 'kevinhwang91/nvim-hlslens'
+    use 'justinmk/vim-sneak'
+    -- use 'windwp/nvim-spectre'
+    -- use 'karb94/neoscroll.nvim'
+    -- use 'nacro90/numb.nvim'
+
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins

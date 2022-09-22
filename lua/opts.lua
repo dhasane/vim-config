@@ -89,8 +89,8 @@ vim.g['netrw_browse_split'] = 4
 vim.g['netrw_winsize'] = 25
 
 -- tamaño minimo de una vista
-opt.winheight = 25
-opt.winwidth = 90
+-- opt.winheight = 25
+-- opt.winwidth = 90
 -- TODO winlayout suena interesante
 -- ['row', [['col', [['leaf', 1115], ['leaf', 1111]]], ['leaf', 1114]]]
 
