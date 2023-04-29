@@ -57,8 +57,10 @@ end
 -- })
 
 maps("<leader><TAB>", 'n', {
-    {'c', ':tabnew'},
+    {'c', ':tabnew %'},
     {'q', ':tabclose'},
+    {'h', ':tabprevious'},
+    {'l', ':tabnext'},
 })
 
 maps('<leader>\'', 'n', {
@@ -71,6 +73,7 @@ map("n", '<Esc>', '<Esc>:nohlsearch<CR>')
 
 -- secuencia de escape de la terminal de vim
 -- para mover desde la terminal
+map("t", "<Esc>", "<C-\\>", noremap)
 map("t", "<C-h>", "<C-\\><C-n><C-w>h", noremap) 
 map("t", "<C-j>", "<C-\\><C-n><C-w>j", noremap) 
 map("t", "<C-k>", "<C-\\><C-n><C-w>k", noremap) 
